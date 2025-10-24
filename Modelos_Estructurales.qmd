@@ -625,7 +625,7 @@ El test **trace** contrasta la hipótesis nula de que existen como máximo *r* v
 El resultado fue:
 
 | Hipótesis nula | Estadístico | Valor crítico (5%) | Decisión |
-|----|----|----|----|
+|------------------|------------------|-------------------|------------------|
 | r = 0 | **220.68** | 202.92 | **Rechazar H₀** → existe al menos 1 relación de cointegración |
 | r ≤ 1 | **158.09** | 165.58 | No se rechaza H₀ |
 | r ≤ 2 | 117.22 | 131.70 | No se rechaza H₀ |
@@ -688,7 +688,7 @@ Las desviaciones de corto plazo se corrigen gradualmente, especialmente a travé
 **Resumen interpretativo**
 
 | Elemento | Descripción | Conclusión |
-|----|----|----|
+|----------------------|---------------------------|------------------------|
 | Test Trace | Evalúa número de relaciones de cointegración | 1 vector cointegrante |
 | Test Eigenvalue | Evalúa significancia marginal de cada raíz característica | 1 vector cointegrante |
 | Eigenvectors (β) | Relación de equilibrio entre las variables | Existe relación estable entre ingresos, gasto y PIB |
@@ -913,7 +913,7 @@ $$
 ### 🔹 ✅ Conclusión general
 
 | **Test** | **Hipótesis nula** | **p-value** | **Decisión** | **Conclusión** |
-|----|----|----|----|----|
+|---------------|---------------|---------------|---------------|---------------|
 | Portmanteau | No autocorrelación | 0.191 | No se rechaza | Residuos no autocorrelados |
 | ARCH | Homocedasticidad | 1.000 | No se rechaza | Varianza constante |
 | Normalidad (JB) | Normalidad multivariada | 0.8457 | No se rechaza | Residuos normales |
@@ -1034,7 +1034,7 @@ Estas funciones permiten analizar cómo una **perturbación (shock)** en una var
 ### 🔹 Parámetros principales
 
 | **Argumento** | **Descripción** |
-|----|----|
+|-----------------------------------|-------------------------------------|
 | `impulse = "L_PP"` | Variable que recibe el **shock exógeno** (perturbación). |
 | `response = "L_PIB"` | Variable cuya **respuesta** se observa. |
 | `n.ahead = 12` | Horizonte temporal de **12 períodos** (por ejemplo, trimestres o meses). |
