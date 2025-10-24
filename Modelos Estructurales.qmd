@@ -1,0 +1,759 @@
+---
+title: "Modelos Estructurales"
+subtitle: "OKONOMETRIC CISE"
+author: "William X. Ramos Chucuri"
+date: "`r Sys.Date()`"  
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    number-sections: true
+    output-file: "index"
+  docx: default
+  pdf:
+    toc: true
+    number-sections: true
+    df-print: kable
+lang: es
+params:
+  fecha_corte: "2024-12-31"
+---
+
+# **1. Modelos Estructurales**
+
+-   Modelos estructurales vs Modelos Estadísticos
+
+-   La estimación estructural tiene múltiples limitaciones.
+
+-   El uso de modelos parsimoniosos tiene un costo, podemos caer el modelos sub-parametrizados, es decir podemos estimar modelos sesgados e inconsistentes. (Condiciones fundamentales en econometría).
+
+-   La exogeneidad estricta es un supuesto muy restrictivo en un modelo multiecuacional.
+
+-   Los modelos VAR son modelos estadísticos.
+
+    -   El poner restricciones al modelo (Matrices o condiciones- nos ayudarían a transformarlo en un modelo estructural **SVAR.**
+
+-   Los modelos de Equilibrio general son modelos estructurales \| Estos modelos me permiten modelar situaciones como la **pandemia COVID-19.**
+
+    -   Permiten modelar situaciones sobre las cuales no tenemos historia, es decir una estructura consistente.
+
+## 1.2.Modelo VAR(p)
+
+Un modelo autorregresivo vectorial de orden ( p ), denotado como ( VAR(p) ), se define de la siguiente forma:
+
+$X_t = c + A_1 X_{t-1} + A_2 X_{t-2} + \dots + A_p X_{t-p} + \varepsilon_t$
+
+donde:
+
+-   $X_t$ es un vector de variables endógenas de dimensión $K \times 1$.
+-   $c$ es un vector de constantes de dimensión $K \times 1$.
+-   $A_i$ son las matrices de coeficientes de dimensión $K \times K$ para cada rezago $i = 1, 2, \dots, p$.
+-   $\varepsilon_t$ son los términos de error o innovaciones, con media cero y matriz de covarianza:
+
+$\Sigma_u = E[\varepsilon_t \varepsilon_t']$
+
+donde $\Sigma_u$ es simétrica y definida positiva.
+
+En forma compacta, el modelo VAR(p) capta la interdependencia dinámica entre las variables endógenas en el tiempo.
+
+## 1.3. Propiedades Básicas
+
+-   **Endogeneidad total:** todas las variables son explicadas por sus propios rezagos y los de las demás.
+
+-   **Identificación reducida:** los residuos $εt$ pueden estar correlacionados, lo que impide inferencias estructurales.
+
+-   **Necesidad de estacionariedad:** Las series deben ser integradas de orden 0 o cointegradas (en cuyo caso se usa VECM).
+
+-   Hay que recordar que al ser integradas I (1) significa que tienen raíz unitaria y son procesos no estacionarios. Si queremos trabajar en modelos multiecuacionales debemos quitar esta raíz unitaria; por eso mencionamos que necesitamos que estas series sean procesos estacionarios.
+
+-   Es decir que su media y varianza esten mas o menos alrededor de cero y constantes en el tiempo.
+
+## 1.4. Proceso de estimación
+
+Cada ecuación del VAR se estima por Mínimos Cuadrados Ordinarios (OLS), dado que los regresores son idénticos entre ecuaciones y se espera que el sistema no presente endogeneidad contemporánea.
+
+El VAR describe la **dinámica conjunta de las series** y permite análisis como:
+
+-   impulso-respuesta (IRF)- Una aproximación estructural
+
+-   descomposición de varianza (FEVD),
+
+-   pronósticos conjuntos.
+
+## 1.5. El problema de identificación
+
+Un VAR reducido no permite identificar los efectos contemporáneos ni distinguir causalidad estructural.
+
+## 1.6. Identificación en un modelo VAR estructural
+
+Un VAR con ( n ) variables contiene:
+
+$2n^2$
+
+parámetros en las matrices ( A ) y ( B ).
+
+La matriz de covarianza de los errores, denotada como $\Sigma_u$, solo aporta:
+
+$\frac{n(n + 1)}{2}$
+
+ecuaciones independientes.
+
+Por lo tanto, para lograr la identificación del modelo, se requieren al menos:
+
+$\frac{n(n - 1)}{2}$
+
+restricciones adicionales, que generalmente se imponen sobre las matrices ( A ) o ( B ) (dependiendo del tipo de identificación: contemporánea, de largo plazo, o basada en restricciones de signo).
+
+En un modelo VAR estructural (SVAR), el objetivo es recuperar las relaciones estructurales contemporáneas entre las variables, es decir, cómo los choques estructurales (innovaciones puras) afectan simultáneamente a las variables del sistema.
+
+Sin embargo, el modelo estimado directamente (el VAR reducido) solo nos proporciona información sobre la **covarianza observada de los errores**, $\Sigma_u$.\
+Esta matriz tiene $n(n + 1)/2$ elementos únicos, ya que es **simétrica**.
+
+El problema surge porque las matrices ( A ) y ( B ) contienen en total ( 2n\^2 ) parámetros desconocidos, mientras que solo contamos con $n(n + 1)/2$ ecuaciones provenientes de $Sigma_u$.\
+Esto implica que el sistema está **subidentificado**: hay más parámetros desconocidos que ecuaciones disponibles.
+
+Para resolver este problema, se deben imponer **restricciones adicionales** que permitan identificar cada parámetro estructural.\
+En concreto, se necesitan al menos:
+
+$\frac{n(n - 1)}{2}$
+
+restricciones adicionales para que el número de ecuaciones iguale al número de parámetros y el sistema quede **justamente identificado**.
+
+------------------------------------------------------------------------
+
+### 🧩 Tipos de restricciones comunes
+
+1.  **Restricciones contemporáneas (modelo tipo AB o recursivo - Cholesky):**\
+    Se impone una estructura triangular en ( A ) o ( B ) asumiendo que ciertas variables no responden contemporáneamente a otras.
+
+2.  **Restricciones de largo plazo (modelo tipo Blanchard-Quah):**\
+    Se imponen condiciones sobre la respuesta acumulada a los choques, por ejemplo, que ciertos choques no afectan permanentemente algunas variables.
+
+3.  **Restricciones de signo (modelo de Uhlig):**\
+    En lugar de ceros, se imponen signos (+/–) sobre las respuestas o sobre los impactos contemporáneos.
+
+------------------------------------------------------------------------
+
+### 🧠 Ejemplo ilustrativo
+
+Para un VAR de **2 variables (n = 2)**:
+
+-   Parámetros totales: $2n^2 = 8$
+-   Ecuaciones de la covarianza: $n(n + 1)/2 = 3$
+-   Restricciones necesarias: $n(n - 1)/2 = 1$
+
+Por tanto, se necesita **al menos una restricción adicional** (por ejemplo, asumir que una variable no reacciona contemporáneamente a otra) para lograr la identificación.
+
+------------------------------------------------------------------------
+
+💡 **Conclusión:**
+
+-   La identificación en los modelos VAR estructurales es esencial para poder interpretar los choques estimados como “causales” o “estructurales”.
+
+-   Sin restricciones suficientes, solo observamos correlaciones reducidas, no relaciones estructurales.
+
+**Ejemplo empíco**
+
+```{r}
+# =========================================================
+# 0) Paquetes y setup
+# =========================================================
+# install.packages(c("zoo","ggplot2","tseries","vars","urca","forecast","dplyr","tidyr"))
+library(zoo)
+library(ggplot2)
+library(tseries)
+library(vars)
+library(urca)
+library(forecast)
+library(dplyr)
+library(tidyr)
+
+set.seed(42)
+
+# =========================================================
+# 1) Calendario y variables (72 trimestres 2007Q1–2024Q4)
+# =========================================================
+T  <- 72
+fq <- 4
+fechas <- as.yearqtr(seq(from = as.Date("2007-01-01"),
+                         by = "quarter", length.out = T))
+vars <- c("L_PP","L_PIB","L_GG","L_GC","L_GK","L_IF","L_IVA","L_ICE","L_IR")
+k <- length(vars)
+
+# =========================================================
+# 2) DGP: I(1) con 2 relaciones de cointegración plausibles
+# =========================================================
+# β (columnas = vectores cointegrados)
+beta <- matrix(0, nrow = k, ncol = 2, dimnames = list(vars, c("CI_gasto","CI_tributos")))
+beta["L_GG","CI_gasto"] <- 1;   beta["L_GC","CI_gasto"] <- -0.7; beta["L_GK","CI_gasto"] <- -0.3
+beta["L_IF","CI_tributos"] <- 1; beta["L_IVA","CI_tributos"] <- -0.5; beta["L_IR","CI_tributos"] <- -0.3; beta["L_ICE","CI_tributos"] <- -0.2
+
+# α (velocidades de ajuste)
+alpha <- matrix(0, nrow = k, ncol = 2, dimnames = list(vars, c("CI_gasto","CI_tributos")))
+alpha["L_GG","CI_gasto"]  <- -0.25
+alpha["L_GC","CI_gasto"]  <- -0.10
+alpha["L_GK","CI_gasto"]  <- -0.05
+alpha["L_IF","CI_tributos"]  <- -0.20
+alpha["L_IVA","CI_tributos"] <- -0.10
+alpha["L_IR","CI_tributos"]  <- -0.08
+alpha["L_ICE","CI_tributos"] <- -0.05
+alpha["L_PIB","CI_gasto"]    <- -0.02
+alpha["L_PIB","CI_tributos"] <- -0.01
+alpha["L_PP",] <- c(0,0)  # petróleo no corrige directamente
+
+# Γ1 (dinámica de corto plazo sobre ΔY_{t-1})
+Gamma1 <- matrix(0, nrow = k, ncol = k, dimnames = list(vars, vars))
+Gamma1["L_PIB","L_PP"] <- 0.10
+Gamma1["L_IF","L_PP"]  <- 0.08
+Gamma1["L_IF","L_IVA"] <- 0.10; Gamma1["L_IF","L_IR"] <- 0.07; Gamma1["L_IF","L_ICE"] <- 0.05
+Gamma1["L_GG","L_PIB"] <- 0.06
+Gamma1["L_GC","L_GG"]  <- 0.10; Gamma1["L_GK","L_GG"] <- 0.06
+
+# Σ (varianzas-covarianzas de shocks)
+Sigma <- diag(c(0.20, 0.18, 0.15, 0.12, 0.12, 0.18, 0.15, 0.12, 0.12))
+dimnames(Sigma) <- list(vars, vars)
+Sigma["L_PIB","L_PP"] <- Sigma["L_PP","L_PIB"] <- 0.05
+Sigma["L_IF","L_PP"]  <- Sigma["L_PP","L_IF"]  <- 0.04
+Sigma["L_IF","L_IVA"] <- Sigma["L_IVA","L_IF"] <- 0.06
+Sigma["L_GG","L_PIB"] <- Sigma["L_PIB","L_GG"] <- 0.04
+Sigma <- (Sigma + t(Sigma))/2
+C <- t(chol(Sigma))
+
+# =========================================================
+# 3) Simulación VECM (ΔY_t = Γ1 ΔY_{t-1} + α β' Y_{t-1} + ε_t)
+# =========================================================
+Y  <- matrix(0, nrow = k, ncol = T, dimnames = list(vars, NULL))
+dY <- matrix(0, nrow = k, ncol = T, dimnames = list(vars, NULL))
+Y[,1] <- c(4.6, 8.5, 9.2, 8.9, 7.8, 8.6, 7.9, 6.5, 7.6)
+
+for (t in 2:T) {
+  eps_t  <- C %*% rnorm(k)
+  EC_lag <- t(beta) %*% Y[, t-1]           # (2x9)*(9x1) = (2x1)
+  dY[,t] <- Gamma1 %*% dY[,t-1] + alpha %*% EC_lag + eps_t
+  Y[,t]  <- Y[,t-1] + dY[,t]
+}
+
+```
+
+**Series a modelar**
+
+Identificación económica que usaré (ajústala si quieres):
+
+-   **Petróleo (L_PP)** es “exógeno contemporáneo”: no recibe shocks contemporáneos de otras variables (solo su propio shock).
+
+-   
+
+-   **PIB (L_PIB)** puede reaccionar contemporáneamente a **petróleo**.
+
+-   
+
+-   **Gasto total (L_GG)** reacciona contemporáneamente al **PIB** (reglas/prociclicidad).
+
+-   
+
+-   **Gasto corriente / de capital (L_GC, L_GK)** reaccionan a **G_G**.
+
+-   
+
+-   **Ingresos (L_IF)** reaccionan a **petróleo** (vía actividad/sector petrolero) y a **impuestos indirectos** (**L_IVA, L_IR, L_ICE**).
+
+-   
+
+-   Para el resto, dejamos parámetros “libres” (NA) solo donde tiene sentido; el resto se fijan en 0.
+
+```{r}
+Y_ts <- ts(t(Y), start = c(2007,1), frequency = fq); colnames(Y_ts) <- vars
+base_wide <- data.frame(
+  fecha_q = fechas,
+  year    = as.integer(format(fechas, "%Y")),
+  quarter = as.integer(cycle(Y_ts)),
+  as.data.frame(Y_ts),
+  check.names = FALSE
+)
+
+base_long <- base_wide |>
+  pivot_longer(cols = all_of(vars), names_to = "variable", values_to = "valor")
+
+ggplot(base_long, aes(x = fecha_q, y = valor)) +
+  geom_line() + facet_wrap(~ variable, scales = "free_y", ncol = 3) +
+  labs(title = "Series simuladas (log)", x = NULL, y = "log") +
+  theme_minimal()
+```
+
+**Estacionariedad en niveles y en diferencias**
+
+```{r}
+adf_levels <- sapply(vars, function(v) adf.test(Y_ts[,v])$p.value)
+adf_diffs  <- sapply(vars, function(v) adf.test(diff(Y_ts[,v])[-1])$p.value)
+cat("\nADF p-valores en niveles:\n"); print(round(adf_levels,4))
+cat("\nADF p-valores en diferencias:\n"); print(round(adf_diffs,4))
+```
+
+## 📘 **1️⃣ Hipótesis del test ADF**
+
+-   **H₀ (nula):** La serie tiene una raíz unitaria → no estacionaria.
+
+-   **H₁ (alternativa):** La serie es estacionaria.
+
+## 📊 **2️⃣ Resultados por niveles**
+
+| Variable | p-valor | Interpretación                     |
+|----------|---------|------------------------------------|
+| L_PP     | 0.5077  | No se rechaza H₀ → no estacionaria |
+| L_PIB    | 0.4831  | No estacionaria                    |
+| L_GG     | 0.1429  | No estacionaria                    |
+| L_GC     | 0.2622  | No estacionaria                    |
+| L_GK     | 0.8133  | No estacionaria                    |
+| L_IF     | 0.3314  | No estacionaria                    |
+| L_IVA    | 0.1580  | No estacionaria                    |
+| L_ICE    | 0.6756  | No estacionaria                    |
+| L_IR     | 0.1775  | No estacionaria                    |
+
+🔹 **Conclusión en niveles:**\
+Todas las variables tienen p-valores \> 0.05 → **no se rechaza la hipótesis nula de raíz unitaria**.\
+➡️ **Ninguna serie es estacionaria en niveles.**
+
+## 📈 **3️⃣ Resultados en primeras diferencias**
+
+| Variable | p-valor | Interpretación                    |
+|----------|---------|-----------------------------------|
+| L_PP     | 0.0302  | Estacionaria                      |
+| L_PIB    | 0.0100  | Estacionaria                      |
+| L_GG     | 0.0100  | Estacionaria                      |
+| L_GC     | 0.0162  | Estacionaria                      |
+| L_GK     | 0.1010  | No estacionaria al 5% (pero casi) |
+| L_IF     | 0.1381  | No estacionaria                   |
+| L_IVA    | 0.1824  | No estacionaria                   |
+| L_ICE    | 0.0965  | No estacionaria (marginal al 10%) |
+| L_IR     | 0.0104  | Estacionaria                      |
+
+🔹 **Conclusión en diferencias:**\
+La mayoría de las series
+
+(L_PP, L_PIB, L_GG, L_GC, L_IR)
+
+Son estacionarias en primeras diferencias (p \< 0.05).\
+Algunas (L_GK, L_IF, L_IVA, L_ICE) presentan p-valores entre 0.09–0.18, lo que podría considerarse estacionarias al 10% o requerir una segunda diferencia o un ajuste de rezagos.
+
+## **4️⃣ Implicación para el modelo VAR**
+
+-   Dado que las series no son estacionarias en niveles pero sí lo son en diferencias, se clasifican como I(1) (integradas de orden uno).
+
+-   Esto sugiere que podría existir cointegración entre ellas, por lo cual el paso siguiente sería aplicar el test de Johansen:
+
+**Seleccionamos los rezagos en niveles (para el Test de Johansen)**
+
+```{r}
+
+sel_lvl <- VARselect(Y_ts, lag.max = 4, type = "const")
+cat("\nCriterios de información (niveles):\n"); print(sel_lvl$criteria)
+p_opt <- as.integer(sel_lvl$selection["AIC(n)"])
+Kj <- max(2, p_opt)
+cat("\nUsando K =", Kj, "para Johansen.\n")
+
+j_tr  <- ca.jo(Y_ts, type = "trace", K = Kj, ecdet = "const", spec = "transitory")
+j_eig <- ca.jo(Y_ts, type = "eigen", K = Kj, ecdet = "const", spec = "transitory")
+cat("\n--- Johansen TRACE ---\n"); print(summary(j_tr))
+cat("\n--- Johansen EIGEN ---\n"); print(summary(j_eig))
+
+choose_r_trace <- function(jobj, alpha = 0.05) {
+  ts <- jobj@teststat
+  cv <- jobj@cval[,"5pct"]
+  sum(ts > cv)
+}
+r <- max(1, choose_r_trace(j_tr, 0.05))   # asegura r≥1 para poder estimar VECM
+cat("\nRango de cointegración estimado (trace, 5%): r =", r, "\n")
+
+```
+
+La salida proviene de la selección del número óptimo de rezagos $(p)$ en un modelo VAR.\
+
+Los criterios de información (AIC, HQ, SC, FPE) comparan la bondad de ajuste y la penalización por complejidad del modelo (número de rezagos).
+
+El objetivo es elegir el valor de $(p)$ que minimiza el criterio seleccionado.
+
+-Normalmente **AIC** (Akaike Information Criterion) o **BIC/SC** (Schwarz Criterion).
+
+```{r}
+vecm_fit <- cajorls(j_tr, r = r)
+cat("\n--- Beta (vectores cointegrados estimados) ---\n")
+print(vecm_fit$beta)
+
+var_from_vecm <- vec2var(j_tr, r = r)  
+```
+
+Función para elejir r 5%
+
+```{r}
+
+cat("\n--- Portmanteau ---\n"); print(serial.test(var_from_vecm, lags.pt = 12, type = "PT.asymptotic"))
+cat("\n--- ARCH ---\n"); print(arch.test(var_from_vecm, lags.multi = 5))
+cat("\n--- Normalidad ---\n"); print(normality.test(var_from_vecm))
+```
+
+**Estimación Estabilidad**
+
+```{r}
+var_levels <- VAR(Y_ts, p = Kj, type = "const")
+mod_roots <- roots(var_levels, modulus = TRUE)
+cat("\nMódulos de autovalores (VAR en niveles, p=Kj):\n"); print(round(sort(mod_roots, decreasing = TRUE), 4))
+plot(roots(var_levels))   # puntos dentro del círculo => estable
+
+```
+
+## VAR equivalente del VECM (para IRF/FEVD/forecast)
+
+```{r}
+dY_ts <- na.omit(diff(Y_ts))
+sel_d <- VARselect(dY_ts, lag.max = 4, type = "const")
+p_d <- ifelse(is.na(as.integer(sel_d$selection["AIC(n)"])), 2L, as.integer(sel_d$selection["AIC(n)"]))
+cat("\nVAR(Δ) seleccionado (AIC): p_d =", p_d, "\n")
+var_d <- VAR(dY_ts, p = p_d, type = "const")
+stb_diff <- stability(var_d, type = "OLS-CUSUM")
+
+```
+
+```{r}
+png("stability_VAR_diff_CUSUM.png", width = 1400, height = 900, res = 150)
+par(mar = c(4, 4, 2, 1))
+plot(stb_diff)
+dev.off()
+cat("Gráfico guardado en: stability_VAR_diff_CUSUM.png\n")
+```
+
+**IRF**
+
+```{r}
+
+irf_pp_pib <- irf(var_from_vecm, impulse = "L_PP", response = "L_PIB",
+                  n.ahead = 12, boot = TRUE, ci = 0.95)
+plot(irf_pp_pib)
+
+fevd_v <- fevd(var_from_vecm, n.ahead = 12)
+
+
+# Cierra cualquier gráfico abierto
+while (!is.null(dev.list())) dev.off()
+
+# Exporta el FEVD a un PNG
+png("FEVD_VECM.png", width = 1400, height = 900, res = 150)
+par(mar = c(4,4,2,1))  # Márgenes reducidas
+plot(fevd_v)
+dev.off()
+
+cat("✅ Gráfico FEVD guardado como 'FEVD_VECM.png' en tu directorio de trabajo.\n")
+
+
+```
+
+```{r}
+# IRF: L_PP → L_PIB
+png("IRF_L_PP_to_L_PIB.png", width = 1400, height = 900, res = 150)
+par(mar = c(4,4,2,1))
+plot(irf_pp_pib)
+dev.off()
+
+cat("✅ Gráfico IRF guardado como 'IRF_L_PP_to_L_PIB.png'\n")
+
+```
+
+## **Modelo SVAR**
+
+```{r}
+# =========================================================
+# 0) Paquetes y setup
+# =========================================================
+# install.packages(c("zoo","ggplot2","tseries","vars","urca","forecast","dplyr","tidyr"))
+library(zoo)
+library(ggplot2)
+library(tseries)
+library(vars)
+library(urca)
+library(forecast)
+library(dplyr)
+library(tidyr)
+
+set.seed(42)
+
+# =========================================================
+# 1) Calendario y variables (72 trimestres 2007Q1–2024Q4)
+# =========================================================
+T  <- 72
+fq <- 4
+fechas <- as.yearqtr(seq(from = as.Date("2007-01-01"),
+                         by = "quarter", length.out = T))
+vars <- c("L_PP","L_PIB","L_GG","L_GC","L_GK","L_IF","L_IVA","L_ICE","L_IR")
+k <- length(vars)
+
+# =========================================================
+# 2) DGP: I(1) con 2 cointegraciones plausibles (para simular)
+# =========================================================
+beta <- matrix(0, nrow = k, ncol = 2, dimnames = list(vars, c("CI_gasto","CI_tributos")))
+beta["L_GG","CI_gasto"] <- 1;   beta["L_GC","CI_gasto"] <- -0.7; beta["L_GK","CI_gasto"] <- -0.3
+beta["L_IF","CI_tributos"] <- 1; beta["L_IVA","CI_tributos"] <- -0.5; beta["L_IR","CI_tributos"] <- -0.3; beta["L_ICE","CI_tributos"] <- -0.2
+
+alpha <- matrix(0, nrow = k, ncol = 2, dimnames = list(vars, c("CI_gasto","CI_tributos")))
+alpha["L_GG","CI_gasto"]  <- -0.25
+alpha["L_GC","CI_gasto"]  <- -0.10
+alpha["L_GK","CI_gasto"]  <- -0.05
+alpha["L_IF","CI_tributos"]  <- -0.20
+alpha["L_IVA","CI_tributos"] <- -0.10
+alpha["L_IR","CI_tributos"]  <- -0.08
+alpha["L_ICE","CI_tributos"] <- -0.05
+alpha["L_PIB","CI_gasto"]    <- -0.02
+alpha["L_PIB","CI_tributos"] <- -0.01
+alpha["L_PP",] <- c(0,0)  # petróleo no corrige directamente
+
+Gamma1 <- matrix(0, nrow = k, ncol = k, dimnames = list(vars, vars))
+Gamma1["L_PIB","L_PP"] <- 0.10
+Gamma1["L_IF","L_PP"]  <- 0.08
+Gamma1["L_IF","L_IVA"] <- 0.10; Gamma1["L_IF","L_IR"] <- 0.07; Gamma1["L_IF","L_ICE"] <- 0.05
+Gamma1["L_GG","L_PIB"] <- 0.06
+Gamma1["L_GC","L_GG"]  <- 0.10
+Gamma1["L_GK","L_GG"]  <- 0.06
+
+Sigma <- diag(c(0.20, 0.18, 0.15, 0.12, 0.12, 0.18, 0.15, 0.12, 0.12))
+dimnames(Sigma) <- list(vars, vars)
+Sigma["L_PIB","L_PP"] <- Sigma["L_PP","L_PIB"] <- 0.05
+Sigma["L_IF","L_PP"]  <- Sigma["L_PP","L_IF"]  <- 0.04
+Sigma["L_IF","L_IVA"] <- Sigma["L_IVA","L_IF"] <- 0.06
+Sigma["L_GG","L_PIB"] <- Sigma["L_PIB","L_GG"] <- 0.04
+Sigma <- (Sigma + t(Sigma))/2
+C <- t(chol(Sigma))
+
+# =========================================================
+# 3) Simulación VECM (ΔY_t = Γ1 ΔY_{t-1} + α β' Y_{t-1} + ε_t)
+# =========================================================
+Y  <- matrix(0, nrow = k, ncol = T, dimnames = list(vars, NULL))
+dY <- matrix(0, nrow = k, ncol = T, dimnames = list(vars, NULL))
+Y[,1] <- c(4.6, 8.5, 9.2, 8.9, 7.8, 8.6, 7.9, 6.5, 7.6)
+
+for (t in 2:T) {
+  eps_t  <- C %*% rnorm(k)
+  EC_lag <- t(beta) %*% Y[, t-1]           # (2x9)*(9x1) = (2x1)
+  dY[,t] <- Gamma1 %*% dY[,t-1] + alpha %*% EC_lag + eps_t
+  Y[,t]  <- Y[,t-1] + dY[,t]
+}
+
+Y_ts <- ts(t(Y), start = c(2007,1), frequency = fq); colnames(Y_ts) <- vars
+
+
+```
+
+```{r}
+dY_ts <- na.omit(diff(Y_ts))
+sel_d <- VARselect(dY_ts, lag.max = 4, type = "const")
+p_d <- ifelse(is.na(as.integer(sel_d$selection["AIC(n)"])), 2L, as.integer(sel_d$selection["AIC(n)"]))
+cat("Rezagos VAR(Δ) (AIC): p_d =", p_d, "\n")
+
+var_d <- VAR(dY_ts, p = p_d, type = "const")   # <- 'varest'
+cat("\nResumen VAR(Δ):\n"); print(summary(var_d))
+
+# Diagnósticos rápidos
+cat("\nPortmanteau (autocorrelación):\n"); print(serial.test(var_d, lags.pt = 12, type = "PT.asymptotic"))
+cat("\nARCH (heterocedasticidad):\n");     print(arch.test(var_d, lags.multi = 5))
+cat("\nNormalidad (Jarque-Bera multivariante):\n"); print(normality.test(var_d))
+
+# Estabilidad (raíces del VAR(Δ))
+mod_roots <- roots(var_d, modulus = TRUE)
+cat("\nMódulos de autovalores (VAR(Δ)):\n"); print(round(sort(mod_roots, decreasing = TRUE), 4))
+
+
+```
+
+```{r}
+vnames_d <- colnames(var_d$y)
+K <- length(vnames_d)
+
+# A: 1 en diagonal; 0 = cero fijo; NA = libre
+Amat_d <- diag(1, K); dimnames(Amat_d) <- list(vnames_d, vnames_d)
+
+# ΔL_PP (shock de petróleo) NO recibe contemporáneos del resto:
+Amat_d["L_PP", setdiff(vnames_d, "L_PP")] <- 0
+
+# Canales contemporáneos plausibles (libres)
+Amat_d["L_PIB","L_PP"] <- NA      # petróleo → PIB
+Amat_d["L_GG","L_PIB"] <- NA      # PIB → gasto total
+Amat_d["L_GC","L_GG"]  <- NA      # gasto total → gasto corriente
+Amat_d["L_GK","L_GG"]  <- NA      # gasto total → gasto capital
+Amat_d["L_IF","L_PP"]  <- NA      # petróleo → ingresos fiscales
+Amat_d["L_IF","L_IVA"] <- NA      # IVA → ingresos fiscales
+Amat_d["L_IF","L_IR"]  <- NA      # IR → ingresos fiscales
+Amat_d["L_IF","L_ICE"] <- NA      # ICE → ingresos fiscales
+# (todo lo no especificado queda en 0; ajusta NA/0 según tu narrativa)
+
+# B: diagonal (NA para las sd de los shocks), 0 fuera
+Bmat_d <- diag(NA, K); dimnames(Bmat_d) <- list(vnames_d, vnames_d)
+Bmat_d[row(Bmat_d) != col(Bmat_d)] <- 0
+
+# Estimar SVAR(Δ)
+svar_d <- SVAR(var_d, Amat = Amat_d, Bmat = Bmat_d, estmethod = "direct")
+cat("\nSVAR(Δ) estimado con éxito.\n")
+
+```
+
+```{r}
+while (!is.null(dev.list())) dev.off()
+
+# IRF: shock petróleo → PIB
+irf_pp_pib_d <- irf(svar_d, impulse = "L_PP", response = "L_PIB",
+                    n.ahead = 12, boot = TRUE, ci = 0.95)
+png("IRF_SVAR_DIFF_LPP_to_LPIB.png", width = 1400, height = 900, res = 150)
+par(mar = c(4,4,2,1)); plot(irf_pp_pib_d); dev.off()
+cat("✅ Guardado: IRF_SVAR_DIFF_LPP_to_LPIB.png\n")
+
+# IRF: shock petróleo → ingresos fiscales
+irf_pp_if_d <- irf(svar_d, impulse = "L_PP", response = "L_IF",
+                   n.ahead = 12, boot = TRUE, ci = 0.95)
+png("IRF_SVAR_DIFF_LPP_to_LIF.png", width = 1400, height = 900, res = 150)
+par(mar = c(4,4,2,1)); plot(irf_pp_if_d); dev.off()
+cat("✅ Guardado: IRF_SVAR_DIFF_LPP_to_LIF.png\n")
+
+# FEVD (12 pasos)
+fevd_d <- fevd(svar_d, n.ahead = 12)
+png("FEVD_SVAR_DIFF_12.png", width = 1400, height = 900, res = 150)
+par(mar = c(4,4,2,1)); plot(fevd_d); dev.off()
+cat("✅ Guardado: FEVD_SVAR_DIFF_12.png\n")
+
+# IRFs de petróleo hacia todas las respuestas (lote)
+responses <- c("L_PIB","L_GG","L_GC","L_GK","L_IF","L_IVA","L_ICE","L_IR")
+for (resp in responses) {
+  f <- irf(svar_d, impulse = "L_PP", response = resp, n.ahead = 12, boot = TRUE, ci = 0.95)
+  fn <- paste0("IRF_SVAR_DIFF_LPP_to_", resp, ".png")
+  png(fn, width = 1400, height = 900, res = 150)
+  par(mar = c(4,4,2,1)); plot(f); dev.off()
+  cat("✅ Guardado: ", fn, "\n", sep = "")
+}
+
+cat("\n=== FIN: SVAR en diferencias (estacionario) con gráficos exportados ===\n")
+```
+
+Forecast
+
+```{r}
+# ===============================
+# FORECAST con VAR en diferencias
+# ===============================
+
+# Horizonte de pronóstico (trimestres)
+h <- 8  # 2 años
+
+# 1) Pronóstico de diferencias (Δlog) con el VAR estacionario
+fc_d <- predict(var_d, n.ahead = h, ci = 0.95)
+
+# Extraer medias, límites inferior/superior por variable
+vnames_d <- colnames(var_d$y)
+dhat_mean <- sapply(vnames_d, function(v) fc_d$fcst[[v]][, "fcst"])
+dhat_low  <- sapply(vnames_d, function(v) fc_d$fcst[[v]][, "lower"])
+dhat_high <- sapply(vnames_d, function(v) fc_d$fcst[[v]][, "upper"])
+
+# 2) Reconstruir niveles (logs) desde el último dato observado
+last_level <- as.numeric(tail(Y_ts, 1))   # vector de 9 niveles (logs) en 2024Q4
+names(last_level) <- colnames(Y_ts)
+
+# Función auxiliar: acumula difs para pasar a niveles
+rebuild_levels <- function(last_level, diffs_mat) {
+  # diffs_mat: h x k (Δlog pronosticadas)
+  lev <- matrix(NA_real_, nrow = nrow(diffs_mat), ncol = ncol(diffs_mat))
+  colnames(lev) <- colnames(diffs_mat)
+  prev <- last_level
+  for (t in 1:nrow(diffs_mat)) {
+    lev[t, ] <- prev + diffs_mat[t, ]
+    prev     <- lev[t, ]
+  }
+  lev
+}
+
+# Niveles pronosticados (punto), y bandas aprox. por acumulación (didáctico)
+lev_hat_mean <- rebuild_levels(last_level, dhat_mean)
+lev_hat_low  <- rebuild_levels(last_level, dhat_low)
+lev_hat_high <- rebuild_levels(last_level, dhat_high)
+
+# 3) Construir fechas futuras (trimestres posteriores a 2024Q4)
+#    Reusamos la secuencia "fechas" que ya tienes (2007Q1..2024Q4) y la extendemos
+fechas_all <- as.yearqtr(seq(from = as.Date("2007-01-01"), by = "quarter", length.out = T + h))
+fechas_fc  <- tail(fechas_all, h)  # fechas pronóstico
+
+# 4) Armar data.frames para exportar a CSV
+# a) Pronóstico en diferencias
+fc_diff_df <- data.frame(
+  fecha_q = fechas_fc,
+  as.data.frame(dhat_mean),
+  check.names = FALSE
+)
+
+# b) Pronóstico en niveles (logs)
+fc_level_df <- data.frame(
+  fecha_q = fechas_fc,
+  as.data.frame(lev_hat_mean),
+  check.names = FALSE
+)
+
+# 5) Exportar a CSV (carpeta de trabajo actual)
+write.csv(fc_diff_df,  "forecast_VARdiff_deltas.csv", row.names = FALSE)
+write.csv(fc_level_df, "forecast_VARdiff_levels.csv", row.names = FALSE)
+cat("✅ CSV guardados: forecast_VARdiff_deltas.csv, forecast_VARdiff_levels.csv\n")
+
+# 6) Gráficos exportados (histórico + pronóstico) para 4 variables clave
+plot_series_fc <- function(varname, file_png) {
+  # Serie histórica (niveles log)
+  hist_ts <- Y_ts[, varname]
+  # Serie pronosticada (niveles log)
+  fc_ts <- ts(lev_hat_mean[, varname],
+              start = c(2007 + (T)/4, (T %% 4) + 1),  # arranque inmediatamente después
+              frequency = 4)
+
+  # Cierra y abre dispositivo PNG grande para evitar márgenes
+  while (!is.null(dev.list())) dev.off()
+  png(file_png, width = 1400, height = 900, res = 150)
+  par(mar = c(4,4,2,1))
+  # Gráfico base del histórico
+  plot(hist_ts, type = "l", lwd = 2, xlab = "Trimestre", ylab = "Log(nivel)",
+       main = paste("Histórico y Forecast (niveles log) -", varname))
+  # Añadir pronóstico
+  lines(window(fc_ts, start = tsp(fc_ts)[1]), lwd = 2, lty = 2)
+  # Límites (aprox.) de confianza en niveles
+  lines(ts(lev_hat_low[, varname],
+           start = start(fc_ts), frequency = 4), lty = 3)
+  lines(ts(lev_hat_high[, varname],
+           start = start(fc_ts), frequency = 4), lty = 3)
+  legend("topleft", bty = "n",
+         legend = c("Histórico", "Pronóstico (media)", "Banda baja", "Banda alta"),
+         lwd = c(2,2,1,1), lty = c(1,2,3,3))
+  dev.off()
+  cat("✅ Gráfico guardado:", file_png, "\n")
+}
+
+# Elige algunas variables representativas para la clase:
+for (vn in c("L_PP","L_PIB","L_GG","L_IF")) {
+  plot_series_fc(vn, paste0("FC_LEVELS_", vn, ".png"))
+}
+
+# 7) (Opcional) Si quieres pronóstico en diferencias (Δlog) también en PNG:
+plot_series_fc_diff <- function(varname, file_png) {
+  while (!is.null(dev.list())) dev.off()
+  png(file_png, width = 1400, height = 900, res = 150)
+  par(mar = c(4,4,2,1))
+  plot(dY_ts[, varname], type = "l", lwd = 2, xlab = "Trimestre", ylab = "Δ log",
+       main = paste("Histórico Δlog y Forecast -", varname))
+  lines(ts(dhat_mean[, varname],
+           start = c(2007 + (T)/4, (T %% 4) + 1), frequency = 4), lwd = 2, lty = 2)
+  lines(ts(dhat_low[, varname],
+           start = c(2007 + (T)/4, (T %% 4) + 1), frequency = 4), lty = 3)
+  lines(ts(dhat_high[, varname],
+           start = c(2007 + (T)/4, (T %% 4) + 1), frequency = 4), lty = 3)
+  legend("topleft", bty = "n",
+         legend = c("Δlog histórico", "Δlog pronóstico (media)", "Banda baja", "Banda alta"),
+         lwd = c(2,2,1,1), lty = c(1,2,3,3))
+  dev.off()
+  cat("✅ Gráfico guardado:", file_png, "\n")
+}
+
+for (vn in c("L_PP","L_PIB","L_GG","L_IF")) {
+  plot_series_fc_diff(vn, paste0("FC_DIFF_", vn, ".png"))
+}
+
+cat("\n=== FORECAST listo: CSV + PNG exportados ===\n")
+
+```

@@ -1,0 +1,2326 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="William X. Ramos Chucuri">
+
+<title>Modelos Estructurales</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Modelos Estructurales_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Modelos Estructurales_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Modelos Estructurales_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Modelos Estructurales_files/libs/quarto-html/popper.min.js"></script>
+<script src="Modelos Estructurales_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Modelos Estructurales_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Modelos Estructurales_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Modelos Estructurales_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Modelos Estructurales_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Modelos Estructurales_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Modelos Estructurales_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#modelos-estructurales" id="toc-modelos-estructurales" class="nav-link active" data-scroll-target="#modelos-estructurales"><span class="header-section-number">1</span> <strong>1. Modelos Estructurales</strong></a>
+  <ul class="collapse">
+  <li><a href="#modelo-varp" id="toc-modelo-varp" class="nav-link" data-scroll-target="#modelo-varp"><span class="header-section-number">1.1</span> 1.2.Modelo VAR(p)</a></li>
+  <li><a href="#propiedades-básicas" id="toc-propiedades-básicas" class="nav-link" data-scroll-target="#propiedades-básicas"><span class="header-section-number">1.2</span> 1.3. Propiedades Básicas</a></li>
+  <li><a href="#proceso-de-estimación" id="toc-proceso-de-estimación" class="nav-link" data-scroll-target="#proceso-de-estimación"><span class="header-section-number">1.3</span> 1.4. Proceso de estimación</a></li>
+  <li><a href="#el-problema-de-identificación" id="toc-el-problema-de-identificación" class="nav-link" data-scroll-target="#el-problema-de-identificación"><span class="header-section-number">1.4</span> 1.5. El problema de identificación</a></li>
+  <li><a href="#identificación-en-un-modelo-var-estructural" id="toc-identificación-en-un-modelo-var-estructural" class="nav-link" data-scroll-target="#identificación-en-un-modelo-var-estructural"><span class="header-section-number">1.5</span> 1.6. Identificación en un modelo VAR estructural</a>
+  <ul class="collapse">
+  <li><a href="#tipos-de-restricciones-comunes" id="toc-tipos-de-restricciones-comunes" class="nav-link" data-scroll-target="#tipos-de-restricciones-comunes"><span class="header-section-number">1.5.1</span> 🧩 Tipos de restricciones comunes</a></li>
+  <li><a href="#ejemplo-ilustrativo" id="toc-ejemplo-ilustrativo" class="nav-link" data-scroll-target="#ejemplo-ilustrativo"><span class="header-section-number">1.5.2</span> 🧠 Ejemplo ilustrativo</a></li>
+  </ul></li>
+  <li><a href="#hipótesis-del-test-adf" id="toc-hipótesis-del-test-adf" class="nav-link" data-scroll-target="#hipótesis-del-test-adf"><span class="header-section-number">1.6</span> 📘 <strong>1️⃣ Hipótesis del test ADF</strong></a></li>
+  <li><a href="#resultados-por-niveles" id="toc-resultados-por-niveles" class="nav-link" data-scroll-target="#resultados-por-niveles"><span class="header-section-number">1.7</span> 📊 <strong>2️⃣ Resultados por niveles</strong></a></li>
+  <li><a href="#resultados-en-primeras-diferencias" id="toc-resultados-en-primeras-diferencias" class="nav-link" data-scroll-target="#resultados-en-primeras-diferencias"><span class="header-section-number">1.8</span> 📈 <strong>3️⃣ Resultados en primeras diferencias</strong></a></li>
+  <li><a href="#implicación-para-el-modelo-var" id="toc-implicación-para-el-modelo-var" class="nav-link" data-scroll-target="#implicación-para-el-modelo-var"><span class="header-section-number">1.9</span> <strong>4️⃣ Implicación para el modelo VAR</strong></a></li>
+  <li><a href="#var-equivalente-del-vecm-para-irffevdforecast" id="toc-var-equivalente-del-vecm-para-irffevdforecast" class="nav-link" data-scroll-target="#var-equivalente-del-vecm-para-irffevdforecast"><span class="header-section-number">1.10</span> VAR equivalente del VECM (para IRF/FEVD/forecast)</a></li>
+  <li><a href="#modelo-svar" id="toc-modelo-svar" class="nav-link" data-scroll-target="#modelo-svar"><span class="header-section-number">1.11</span> <strong>Modelo SVAR</strong></a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Otros formatos</h2><ul><li><a href="Modelos Estructurales.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="Modelos-Estructurales.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Modelos Estructurales</h1>
+<p class="subtitle lead">OKONOMETRIC CISE</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-contents">
+             <p>William X. Ramos Chucuri </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Fecha de publicación</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">24 de octubre de 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="modelos-estructurales" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> <strong>1. Modelos Estructurales</strong></h1>
+<ul>
+<li><p>Modelos estructurales vs Modelos Estadísticos</p></li>
+<li><p>La estimación estructural tiene múltiples limitaciones.</p></li>
+<li><p>El uso de modelos parsimoniosos tiene un costo, podemos caer el modelos sub-parametrizados, es decir podemos estimar modelos sesgados e inconsistentes. (Condiciones fundamentales en econometría).</p></li>
+<li><p>La exogeneidad estricta es un supuesto muy restrictivo en un modelo multiecuacional.</p></li>
+<li><p>Los modelos VAR son modelos estadísticos.</p>
+<ul>
+<li>El poner restricciones al modelo (Matrices o condiciones- nos ayudarían a transformarlo en un modelo estructural <strong>SVAR.</strong></li>
+</ul></li>
+<li><p>Los modelos de Equilibrio general son modelos estructurales | Estos modelos me permiten modelar situaciones como la <strong>pandemia COVID-19.</strong></p>
+<ul>
+<li>Permiten modelar situaciones sobre las cuales no tenemos historia, es decir una estructura consistente.</li>
+</ul></li>
+</ul>
+<section id="modelo-varp" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="modelo-varp"><span class="header-section-number">1.1</span> 1.2.Modelo VAR(p)</h2>
+<p>Un modelo autorregresivo vectorial de orden ( p ), denotado como ( VAR(p) ), se define de la siguiente forma:</p>
+<p><span class="math inline">\(X_t = c + A_1 X_{t-1} + A_2 X_{t-2} + \dots + A_p X_{t-p} + \varepsilon_t\)</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(X_t\)</span> es un vector de variables endógenas de dimensión <span class="math inline">\(K \times 1\)</span>.</li>
+<li><span class="math inline">\(c\)</span> es un vector de constantes de dimensión <span class="math inline">\(K \times 1\)</span>.</li>
+<li><span class="math inline">\(A_i\)</span> son las matrices de coeficientes de dimensión <span class="math inline">\(K \times K\)</span> para cada rezago <span class="math inline">\(i = 1, 2, \dots, p\)</span>.</li>
+<li><span class="math inline">\(\varepsilon_t\)</span> son los términos de error o innovaciones, con media cero y matriz de covarianza:</li>
+</ul>
+<p><span class="math inline">\(\Sigma_u = E[\varepsilon_t \varepsilon_t']\)</span></p>
+<p>donde <span class="math inline">\(\Sigma_u\)</span> es simétrica y definida positiva.</p>
+<p>En forma compacta, el modelo VAR(p) capta la interdependencia dinámica entre las variables endógenas en el tiempo.</p>
+</section>
+<section id="propiedades-básicas" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="propiedades-básicas"><span class="header-section-number">1.2</span> 1.3. Propiedades Básicas</h2>
+<ul>
+<li><p><strong>Endogeneidad total:</strong> todas las variables son explicadas por sus propios rezagos y los de las demás.</p></li>
+<li><p><strong>Identificación reducida:</strong> los residuos <span class="math inline">\(εt\)</span> pueden estar correlacionados, lo que impide inferencias estructurales.</p></li>
+<li><p><strong>Necesidad de estacionariedad:</strong> Las series deben ser integradas de orden 0 o cointegradas (en cuyo caso se usa VECM).</p></li>
+<li><p>Hay que recordar que al ser integradas I (1) significa que tienen raíz unitaria y son procesos no estacionarios. Si queremos trabajar en modelos multiecuacionales debemos quitar esta raíz unitaria; por eso mencionamos que necesitamos que estas series sean procesos estacionarios.</p></li>
+<li><p>Es decir que su media y varianza esten mas o menos alrededor de cero y constantes en el tiempo.</p></li>
+</ul>
+</section>
+<section id="proceso-de-estimación" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="proceso-de-estimación"><span class="header-section-number">1.3</span> 1.4. Proceso de estimación</h2>
+<p>Cada ecuación del VAR se estima por Mínimos Cuadrados Ordinarios (OLS), dado que los regresores son idénticos entre ecuaciones y se espera que el sistema no presente endogeneidad contemporánea.</p>
+<p>El VAR describe la <strong>dinámica conjunta de las series</strong> y permite análisis como:</p>
+<ul>
+<li><p>impulso-respuesta (IRF)- Una aproximación estructural</p></li>
+<li><p>descomposición de varianza (FEVD),</p></li>
+<li><p>pronósticos conjuntos.</p></li>
+</ul>
+</section>
+<section id="el-problema-de-identificación" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="el-problema-de-identificación"><span class="header-section-number">1.4</span> 1.5. El problema de identificación</h2>
+<p>Un VAR reducido no permite identificar los efectos contemporáneos ni distinguir causalidad estructural.</p>
+</section>
+<section id="identificación-en-un-modelo-var-estructural" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="identificación-en-un-modelo-var-estructural"><span class="header-section-number">1.5</span> 1.6. Identificación en un modelo VAR estructural</h2>
+<p>Un VAR con ( n ) variables contiene:</p>
+<p><span class="math inline">\(2n^2\)</span></p>
+<p>parámetros en las matrices ( A ) y ( B ).</p>
+<p>La matriz de covarianza de los errores, denotada como <span class="math inline">\(\Sigma_u\)</span>, solo aporta:</p>
+<p><span class="math inline">\(\frac{n(n + 1)}{2}\)</span></p>
+<p>ecuaciones independientes.</p>
+<p>Por lo tanto, para lograr la identificación del modelo, se requieren al menos:</p>
+<p><span class="math inline">\(\frac{n(n - 1)}{2}\)</span></p>
+<p>restricciones adicionales, que generalmente se imponen sobre las matrices ( A ) o ( B ) (dependiendo del tipo de identificación: contemporánea, de largo plazo, o basada en restricciones de signo).</p>
+<p>En un modelo VAR estructural (SVAR), el objetivo es recuperar las relaciones estructurales contemporáneas entre las variables, es decir, cómo los choques estructurales (innovaciones puras) afectan simultáneamente a las variables del sistema.</p>
+<p>Sin embargo, el modelo estimado directamente (el VAR reducido) solo nos proporciona información sobre la <strong>covarianza observada de los errores</strong>, <span class="math inline">\(\Sigma_u\)</span>.<br>
+Esta matriz tiene <span class="math inline">\(n(n + 1)/2\)</span> elementos únicos, ya que es <strong>simétrica</strong>.</p>
+<p>El problema surge porque las matrices ( A ) y ( B ) contienen en total ( 2n^2 ) parámetros desconocidos, mientras que solo contamos con <span class="math inline">\(n(n + 1)/2\)</span> ecuaciones provenientes de <span class="math inline">\(Sigma_u\)</span>.<br>
+Esto implica que el sistema está <strong>subidentificado</strong>: hay más parámetros desconocidos que ecuaciones disponibles.</p>
+<p>Para resolver este problema, se deben imponer <strong>restricciones adicionales</strong> que permitan identificar cada parámetro estructural.<br>
+En concreto, se necesitan al menos:</p>
+<p><span class="math inline">\(\frac{n(n - 1)}{2}\)</span></p>
+<p>restricciones adicionales para que el número de ecuaciones iguale al número de parámetros y el sistema quede <strong>justamente identificado</strong>.</p>
+<hr>
+<section id="tipos-de-restricciones-comunes" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1" class="anchored" data-anchor-id="tipos-de-restricciones-comunes"><span class="header-section-number">1.5.1</span> 🧩 Tipos de restricciones comunes</h3>
+<ol type="1">
+<li><p><strong>Restricciones contemporáneas (modelo tipo AB o recursivo - Cholesky):</strong><br>
+Se impone una estructura triangular en ( A ) o ( B ) asumiendo que ciertas variables no responden contemporáneamente a otras.</p></li>
+<li><p><strong>Restricciones de largo plazo (modelo tipo Blanchard-Quah):</strong><br>
+Se imponen condiciones sobre la respuesta acumulada a los choques, por ejemplo, que ciertos choques no afectan permanentemente algunas variables.</p></li>
+<li><p><strong>Restricciones de signo (modelo de Uhlig):</strong><br>
+En lugar de ceros, se imponen signos (+/–) sobre las respuestas o sobre los impactos contemporáneos.</p></li>
+</ol>
+<hr>
+</section>
+<section id="ejemplo-ilustrativo" class="level3" data-number="1.5.2">
+<h3 data-number="1.5.2" class="anchored" data-anchor-id="ejemplo-ilustrativo"><span class="header-section-number">1.5.2</span> 🧠 Ejemplo ilustrativo</h3>
+<p>Para un VAR de <strong>2 variables (n = 2)</strong>:</p>
+<ul>
+<li>Parámetros totales: <span class="math inline">\(2n^2 = 8\)</span></li>
+<li>Ecuaciones de la covarianza: <span class="math inline">\(n(n + 1)/2 = 3\)</span></li>
+<li>Restricciones necesarias: <span class="math inline">\(n(n - 1)/2 = 1\)</span></li>
+</ul>
+<p>Por tanto, se necesita <strong>al menos una restricción adicional</strong> (por ejemplo, asumir que una variable no reacciona contemporáneamente a otra) para lograr la identificación.</p>
+<hr>
+<p>💡 <strong>Conclusión:</strong></p>
+<ul>
+<li><p>La identificación en los modelos VAR estructurales es esencial para poder interpretar los choques estimados como “causales” o “estructurales”.</p></li>
+<li><p>Sin restricciones suficientes, solo observamos correlaciones reducidas, no relaciones estructurales.</p></li>
+</ul>
+<p><strong>Ejemplo empíco</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 0) Paquetes y setup</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("zoo","ggplot2","tseries","vars","urca","forecast","dplyr","tidyr"))</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Adjuntando el paquete: 'zoo'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    as.Date, as.Date.numeric</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo </code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vars)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Cargando paquete requerido: MASS</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Cargando paquete requerido: strucchange</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Cargando paquete requerido: sandwich</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Cargando paquete requerido: urca</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Cargando paquete requerido: lmtest</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(urca)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Adjuntando el paquete: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:MASS':
+
+    select</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Calendario y variables (72 trimestres 2007Q1–2024Q4)</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>T  <span class="ot">&lt;-</span> <span class="dv">72</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>fq <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>fechas <span class="ot">&lt;-</span> <span class="fu">as.yearqtr</span>(<span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">"2007-01-01"</span>),</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>                         <span class="at">by =</span> <span class="st">"quarter"</span>, <span class="at">length.out =</span> T))</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"L_PP"</span>,<span class="st">"L_PIB"</span>,<span class="st">"L_GG"</span>,<span class="st">"L_GC"</span>,<span class="st">"L_GK"</span>,<span class="st">"L_IF"</span>,<span class="st">"L_IVA"</span>,<span class="st">"L_ICE"</span>,<span class="st">"L_IR"</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">length</span>(vars)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) DGP: I(1) con 2 relaciones de cointegración plausibles</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co"># β (columnas = vectores cointegrados)</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> k, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">dimnames =</span> <span class="fu">list</span>(vars, <span class="fu">c</span>(<span class="st">"CI_gasto"</span>,<span class="st">"CI_tributos"</span>)))</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>beta[<span class="st">"L_GG"</span>,<span class="st">"CI_gasto"</span>] <span class="ot">&lt;-</span> <span class="dv">1</span>;   beta[<span class="st">"L_GC"</span>,<span class="st">"CI_gasto"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.7</span>; beta[<span class="st">"L_GK"</span>,<span class="st">"CI_gasto"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.3</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>beta[<span class="st">"L_IF"</span>,<span class="st">"CI_tributos"</span>] <span class="ot">&lt;-</span> <span class="dv">1</span>; beta[<span class="st">"L_IVA"</span>,<span class="st">"CI_tributos"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.5</span>; beta[<span class="st">"L_IR"</span>,<span class="st">"CI_tributos"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.3</span>; beta[<span class="st">"L_ICE"</span>,<span class="st">"CI_tributos"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.2</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="co"># α (velocidades de ajuste)</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> k, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">dimnames =</span> <span class="fu">list</span>(vars, <span class="fu">c</span>(<span class="st">"CI_gasto"</span>,<span class="st">"CI_tributos"</span>)))</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_GG"</span>,<span class="st">"CI_gasto"</span>]  <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.25</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_GC"</span>,<span class="st">"CI_gasto"</span>]  <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.10</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_GK"</span>,<span class="st">"CI_gasto"</span>]  <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.05</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_IF"</span>,<span class="st">"CI_tributos"</span>]  <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.20</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_IVA"</span>,<span class="st">"CI_tributos"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.10</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_IR"</span>,<span class="st">"CI_tributos"</span>]  <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.08</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_ICE"</span>,<span class="st">"CI_tributos"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.05</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_PIB"</span>,<span class="st">"CI_gasto"</span>]    <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.02</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_PIB"</span>,<span class="st">"CI_tributos"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.01</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_PP"</span>,] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)  <span class="co"># petróleo no corrige directamente</span></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Γ1 (dinámica de corto plazo sobre ΔY_{t-1})</span></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>Gamma1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> k, <span class="at">ncol =</span> k, <span class="at">dimnames =</span> <span class="fu">list</span>(vars, vars))</span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>Gamma1[<span class="st">"L_PIB"</span>,<span class="st">"L_PP"</span>] <span class="ot">&lt;-</span> <span class="fl">0.10</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>Gamma1[<span class="st">"L_IF"</span>,<span class="st">"L_PP"</span>]  <span class="ot">&lt;-</span> <span class="fl">0.08</span></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>Gamma1[<span class="st">"L_IF"</span>,<span class="st">"L_IVA"</span>] <span class="ot">&lt;-</span> <span class="fl">0.10</span>; Gamma1[<span class="st">"L_IF"</span>,<span class="st">"L_IR"</span>] <span class="ot">&lt;-</span> <span class="fl">0.07</span>; Gamma1[<span class="st">"L_IF"</span>,<span class="st">"L_ICE"</span>] <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>Gamma1[<span class="st">"L_GG"</span>,<span class="st">"L_PIB"</span>] <span class="ot">&lt;-</span> <span class="fl">0.06</span></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>Gamma1[<span class="st">"L_GC"</span>,<span class="st">"L_GG"</span>]  <span class="ot">&lt;-</span> <span class="fl">0.10</span>; Gamma1[<span class="st">"L_GK"</span>,<span class="st">"L_GG"</span>] <span class="ot">&lt;-</span> <span class="fl">0.06</span></span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Σ (varianzas-covarianzas de shocks)</span></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="fu">c</span>(<span class="fl">0.20</span>, <span class="fl">0.18</span>, <span class="fl">0.15</span>, <span class="fl">0.12</span>, <span class="fl">0.12</span>, <span class="fl">0.18</span>, <span class="fl">0.15</span>, <span class="fl">0.12</span>, <span class="fl">0.12</span>))</span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(Sigma) <span class="ot">&lt;-</span> <span class="fu">list</span>(vars, vars)</span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>Sigma[<span class="st">"L_PIB"</span>,<span class="st">"L_PP"</span>] <span class="ot">&lt;-</span> Sigma[<span class="st">"L_PP"</span>,<span class="st">"L_PIB"</span>] <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>Sigma[<span class="st">"L_IF"</span>,<span class="st">"L_PP"</span>]  <span class="ot">&lt;-</span> Sigma[<span class="st">"L_PP"</span>,<span class="st">"L_IF"</span>]  <span class="ot">&lt;-</span> <span class="fl">0.04</span></span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>Sigma[<span class="st">"L_IF"</span>,<span class="st">"L_IVA"</span>] <span class="ot">&lt;-</span> Sigma[<span class="st">"L_IVA"</span>,<span class="st">"L_IF"</span>] <span class="ot">&lt;-</span> <span class="fl">0.06</span></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>Sigma[<span class="st">"L_GG"</span>,<span class="st">"L_PIB"</span>] <span class="ot">&lt;-</span> Sigma[<span class="st">"L_PIB"</span>,<span class="st">"L_GG"</span>] <span class="ot">&lt;-</span> <span class="fl">0.04</span></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> (Sigma <span class="sc">+</span> <span class="fu">t</span>(Sigma))<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">chol</span>(Sigma))</span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Simulación VECM (ΔY_t = Γ1 ΔY_{t-1} + α β' Y_{t-1} + ε_t)</span></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a>Y  <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> k, <span class="at">ncol =</span> T, <span class="at">dimnames =</span> <span class="fu">list</span>(vars, <span class="cn">NULL</span>))</span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a>dY <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> k, <span class="at">ncol =</span> T, <span class="at">dimnames =</span> <span class="fu">list</span>(vars, <span class="cn">NULL</span>))</span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a>Y[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">4.6</span>, <span class="fl">8.5</span>, <span class="fl">9.2</span>, <span class="fl">8.9</span>, <span class="fl">7.8</span>, <span class="fl">8.6</span>, <span class="fl">7.9</span>, <span class="fl">6.5</span>, <span class="fl">7.6</span>)</span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>T) {</span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a>  eps_t  <span class="ot">&lt;-</span> C <span class="sc">%*%</span> <span class="fu">rnorm</span>(k)</span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a>  EC_lag <span class="ot">&lt;-</span> <span class="fu">t</span>(beta) <span class="sc">%*%</span> Y[, t<span class="dv">-1</span>]           <span class="co"># (2x9)*(9x1) = (2x1)</span></span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a>  dY[,t] <span class="ot">&lt;-</span> Gamma1 <span class="sc">%*%</span> dY[,t<span class="dv">-1</span>] <span class="sc">+</span> alpha <span class="sc">%*%</span> EC_lag <span class="sc">+</span> eps_t</span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a>  Y[,t]  <span class="ot">&lt;-</span> Y[,t<span class="dv">-1</span>] <span class="sc">+</span> dY[,t]</span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><strong>Series a modelar</strong></p>
+<p>Identificación económica que usaré (ajústala si quieres):</p>
+<ul>
+<li><p><strong>Petróleo (L_PP)</strong> es “exógeno contemporáneo”: no recibe shocks contemporáneos de otras variables (solo su propio shock).</p></li>
+<li></li>
+<li><p><strong>PIB (L_PIB)</strong> puede reaccionar contemporáneamente a <strong>petróleo</strong>.</p></li>
+<li></li>
+<li><p><strong>Gasto total (L_GG)</strong> reacciona contemporáneamente al <strong>PIB</strong> (reglas/prociclicidad).</p></li>
+<li></li>
+<li><p><strong>Gasto corriente / de capital (L_GC, L_GK)</strong> reaccionan a <strong>G_G</strong>.</p></li>
+<li></li>
+<li><p><strong>Ingresos (L_IF)</strong> reaccionan a <strong>petróleo</strong> (vía actividad/sector petrolero) y a <strong>impuestos indirectos</strong> (<strong>L_IVA, L_IR, L_ICE</strong>).</p></li>
+<li></li>
+<li><p>Para el resto, dejamos parámetros “libres” (NA) solo donde tiene sentido; el resto se fijan en 0.</p></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Y_ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">t</span>(Y), <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2007</span>,<span class="dv">1</span>), <span class="at">frequency =</span> fq); <span class="fu">colnames</span>(Y_ts) <span class="ot">&lt;-</span> vars</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>base_wide <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fecha_q =</span> fechas,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">year    =</span> <span class="fu">as.integer</span>(<span class="fu">format</span>(fechas, <span class="st">"%Y"</span>)),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">quarter =</span> <span class="fu">as.integer</span>(<span class="fu">cycle</span>(Y_ts)),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(Y_ts),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>base_long <span class="ot">&lt;-</span> base_wide <span class="sc">|&gt;</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">all_of</span>(vars), <span class="at">names_to =</span> <span class="st">"variable"</span>, <span class="at">values_to =</span> <span class="st">"valor"</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(base_long, <span class="fu">aes</span>(<span class="at">x =</span> fecha_q, <span class="at">y =</span> valor)) <span class="sc">+</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span> variable, <span class="at">scales =</span> <span class="st">"free_y"</span>, <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Series simuladas (log)"</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"log"</span>) <span class="sc">+</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Modelos-Estructurales_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Estacionariedad en niveles y en diferencias</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>adf_levels <span class="ot">&lt;-</span> <span class="fu">sapply</span>(vars, <span class="cf">function</span>(v) <span class="fu">adf.test</span>(Y_ts[,v])<span class="sc">$</span>p.value)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>adf_diffs  <span class="ot">&lt;-</span> <span class="fu">sapply</span>(vars, <span class="cf">function</span>(v) <span class="fu">adf.test</span>(<span class="fu">diff</span>(Y_ts[,v])[<span class="sc">-</span><span class="dv">1</span>])<span class="sc">$</span>p.value)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in adf.test(diff(Y_ts[, v])[-1]): p-value smaller than printed p-value
+Warning in adf.test(diff(Y_ts[, v])[-1]): p-value smaller than printed p-value</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">ADF p-valores en niveles:</span><span class="sc">\n</span><span class="st">"</span>); <span class="fu">print</span>(<span class="fu">round</span>(adf_levels,<span class="dv">4</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ADF p-valores en niveles:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  L_PP  L_PIB   L_GG   L_GC   L_GK   L_IF  L_IVA  L_ICE   L_IR 
+0.5077 0.4831 0.1429 0.2622 0.8133 0.3314 0.1580 0.6756 0.1775 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">ADF p-valores en diferencias:</span><span class="sc">\n</span><span class="st">"</span>); <span class="fu">print</span>(<span class="fu">round</span>(adf_diffs,<span class="dv">4</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ADF p-valores en diferencias:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  L_PP  L_PIB   L_GG   L_GC   L_GK   L_IF  L_IVA  L_ICE   L_IR 
+0.0302 0.0100 0.0100 0.0162 0.1010 0.1381 0.1824 0.0965 0.0104 </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="hipótesis-del-test-adf" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="hipótesis-del-test-adf"><span class="header-section-number">1.6</span> 📘 <strong>1️⃣ Hipótesis del test ADF</strong></h2>
+<ul>
+<li><p><strong>H₀ (nula):</strong> La serie tiene una raíz unitaria → no estacionaria.</p></li>
+<li><p><strong>H₁ (alternativa):</strong> La serie es estacionaria.</p></li>
+</ul>
+</section>
+<section id="resultados-por-niveles" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="resultados-por-niveles"><span class="header-section-number">1.7</span> 📊 <strong>2️⃣ Resultados por niveles</strong></h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>p-valor</th>
+<th>Interpretación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>L_PP</td>
+<td>0.5077</td>
+<td>No se rechaza H₀ → no estacionaria</td>
+</tr>
+<tr class="even">
+<td>L_PIB</td>
+<td>0.4831</td>
+<td>No estacionaria</td>
+</tr>
+<tr class="odd">
+<td>L_GG</td>
+<td>0.1429</td>
+<td>No estacionaria</td>
+</tr>
+<tr class="even">
+<td>L_GC</td>
+<td>0.2622</td>
+<td>No estacionaria</td>
+</tr>
+<tr class="odd">
+<td>L_GK</td>
+<td>0.8133</td>
+<td>No estacionaria</td>
+</tr>
+<tr class="even">
+<td>L_IF</td>
+<td>0.3314</td>
+<td>No estacionaria</td>
+</tr>
+<tr class="odd">
+<td>L_IVA</td>
+<td>0.1580</td>
+<td>No estacionaria</td>
+</tr>
+<tr class="even">
+<td>L_ICE</td>
+<td>0.6756</td>
+<td>No estacionaria</td>
+</tr>
+<tr class="odd">
+<td>L_IR</td>
+<td>0.1775</td>
+<td>No estacionaria</td>
+</tr>
+</tbody>
+</table>
+<p>🔹 <strong>Conclusión en niveles:</strong><br>
+Todas las variables tienen p-valores &gt; 0.05 → <strong>no se rechaza la hipótesis nula de raíz unitaria</strong>.<br>
+➡️ <strong>Ninguna serie es estacionaria en niveles.</strong></p>
+</section>
+<section id="resultados-en-primeras-diferencias" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="resultados-en-primeras-diferencias"><span class="header-section-number">1.8</span> 📈 <strong>3️⃣ Resultados en primeras diferencias</strong></h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>p-valor</th>
+<th>Interpretación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>L_PP</td>
+<td>0.0302</td>
+<td>Estacionaria</td>
+</tr>
+<tr class="even">
+<td>L_PIB</td>
+<td>0.0100</td>
+<td>Estacionaria</td>
+</tr>
+<tr class="odd">
+<td>L_GG</td>
+<td>0.0100</td>
+<td>Estacionaria</td>
+</tr>
+<tr class="even">
+<td>L_GC</td>
+<td>0.0162</td>
+<td>Estacionaria</td>
+</tr>
+<tr class="odd">
+<td>L_GK</td>
+<td>0.1010</td>
+<td>No estacionaria al 5% (pero casi)</td>
+</tr>
+<tr class="even">
+<td>L_IF</td>
+<td>0.1381</td>
+<td>No estacionaria</td>
+</tr>
+<tr class="odd">
+<td>L_IVA</td>
+<td>0.1824</td>
+<td>No estacionaria</td>
+</tr>
+<tr class="even">
+<td>L_ICE</td>
+<td>0.0965</td>
+<td>No estacionaria (marginal al 10%)</td>
+</tr>
+<tr class="odd">
+<td>L_IR</td>
+<td>0.0104</td>
+<td>Estacionaria</td>
+</tr>
+</tbody>
+</table>
+<p>🔹 <strong>Conclusión en diferencias:</strong><br>
+La mayoría de las series</p>
+<p>(L_PP, L_PIB, L_GG, L_GC, L_IR)</p>
+<p>Son estacionarias en primeras diferencias (p &lt; 0.05).<br>
+Algunas (L_GK, L_IF, L_IVA, L_ICE) presentan p-valores entre 0.09–0.18, lo que podría considerarse estacionarias al 10% o requerir una segunda diferencia o un ajuste de rezagos.</p>
+</section>
+<section id="implicación-para-el-modelo-var" class="level2" data-number="1.9">
+<h2 data-number="1.9" class="anchored" data-anchor-id="implicación-para-el-modelo-var"><span class="header-section-number">1.9</span> <strong>4️⃣ Implicación para el modelo VAR</strong></h2>
+<ul>
+<li><p>Dado que las series no son estacionarias en niveles pero sí lo son en diferencias, se clasifican como I(1) (integradas de orden uno).</p></li>
+<li><p>Esto sugiere que podría existir cointegración entre ellas, por lo cual el paso siguiente sería aplicar el test de Johansen:</p></li>
+</ul>
+<p><strong>Seleccionamos los rezagos en niveles (para el Test de Johansen)</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>sel_lvl <span class="ot">&lt;-</span> <span class="fu">VARselect</span>(Y_ts, <span class="at">lag.max =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">"const"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Criterios de información (niveles):</span><span class="sc">\n</span><span class="st">"</span>); <span class="fu">print</span>(sel_lvl<span class="sc">$</span>criteria)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Criterios de información (niveles):</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   1             2             3             4
+AIC(n) -1.864410e+01 -1.800915e+01 -1.739430e+01 -1.776323e+01
+HQ(n)  -1.748014e+01 -1.579762e+01 -1.413521e+01 -1.345658e+01
+SC(n)  -1.570651e+01 -1.242774e+01 -9.169070e+00 -6.894172e+00
+FPE(n)  8.153935e-09  1.731364e-08  4.454123e-08  6.316023e-08</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>p_opt <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(sel_lvl<span class="sc">$</span>selection[<span class="st">"AIC(n)"</span>])</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>Kj <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="dv">2</span>, p_opt)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Usando K ="</span>, Kj, <span class="st">"para Johansen.</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Usando K = 2 para Johansen.</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>j_tr  <span class="ot">&lt;-</span> <span class="fu">ca.jo</span>(Y_ts, <span class="at">type =</span> <span class="st">"trace"</span>, <span class="at">K =</span> Kj, <span class="at">ecdet =</span> <span class="st">"const"</span>, <span class="at">spec =</span> <span class="st">"transitory"</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>j_eig <span class="ot">&lt;-</span> <span class="fu">ca.jo</span>(Y_ts, <span class="at">type =</span> <span class="st">"eigen"</span>, <span class="at">K =</span> Kj, <span class="at">ecdet =</span> <span class="st">"const"</span>, <span class="at">spec =</span> <span class="st">"transitory"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">--- Johansen TRACE ---</span><span class="sc">\n</span><span class="st">"</span>); <span class="fu">print</span>(<span class="fu">summary</span>(j_tr))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- Johansen TRACE ---</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+###################### 
+# Johansen-Procedure # 
+###################### 
+
+Test type: trace statistic , without linear trend and constant in cointegration 
+
+Eigenvalues (lambda):
+ [1]  5.909955e-01  4.423184e-01  3.813286e-01  3.171301e-01  2.314686e-01
+ [6]  2.030888e-01  1.567262e-01  9.683625e-02  4.903297e-02 -8.006596e-17
+
+Values of teststatistic and critical values of test:
+
+           test  10pct   5pct   1pct
+r &lt;= 8 |   3.52   7.52   9.24  12.97
+r &lt;= 7 |  10.65  17.85  19.96  24.60
+r &lt;= 6 |  22.58  32.00  34.91  41.07
+r &lt;= 5 |  38.47  49.65  53.12  60.16
+r &lt;= 4 |  56.90  71.86  76.07  84.45
+r &lt;= 3 |  83.60  97.18 102.14 111.01
+r &lt;= 2 | 117.22 126.58 131.70 143.09
+r &lt;= 1 | 158.09 159.48 165.58 177.20
+r = 0  | 220.68 196.37 202.92 215.74
+
+Eigenvectors, normalised to first column:
+(These are the cointegration relations)
+
+             L_PP.l1    L_PIB.l1     L_GG.l1    L_GC.l1     L_GK.l1
+L_PP.l1    1.0000000  1.00000000  1.00000000  1.0000000   1.0000000
+L_PIB.l1   0.7324992 -2.08073054  0.06556848 -0.8190391   0.7237758
+L_GG.l1   -0.2778916  3.36639420 -1.31418394 -0.2134218  -0.8948099
+L_GC.l1   -0.1847404 -1.88785850 -0.48758497  1.3354645  -1.3605263
+L_GK.l1   -0.2480989 -1.37287595  0.01989781 -1.0902060   0.4782761
+L_IF.l1   -0.1274489  0.06782783  0.80838209 -0.3852260  -1.6148731
+L_IVA.l1   0.5791197  1.20062298  1.23863346  1.4955178   1.5141218
+L_ICE.l1   0.7588437 -1.09644442  0.41950093 -1.0926320   2.1507986
+L_IR.l1    1.3174608 -0.32179846 -0.11028251  0.4897667   0.6610095
+constant -21.3593180  7.20167336 -9.16030864 -4.6071778 -14.4253446
+              L_IF.l1   L_IVA.l1   L_ICE.l1    L_IR.l1     constant
+L_PP.l1    1.00000000  1.0000000  1.0000000  1.0000000  1.000000000
+L_PIB.l1   2.31180164  2.1965497  0.8382612 -0.4410457  0.441582292
+L_GG.l1   -0.55387332  0.1661096 -0.1437685  0.1185211 -0.563672905
+L_GC.l1   -0.54347756 -0.4730255  1.6080807 -0.8404113 -0.240905965
+L_GK.l1   -0.11323347  1.0887838 -1.1336760  0.9718469 -1.549307168
+L_IF.l1   -0.96615237  1.3870214 -0.8986143 -1.3342308 -0.491574728
+L_IVA.l1   0.97208201 -4.9683112 -0.3383076  1.9828351 -0.690720871
+L_ICE.l1   0.53517813  1.8773423  1.0909467 -0.1795450  0.840946996
+L_IR.l1   -0.01142896 -0.8260108 -3.7907235  0.2523096  0.009541541
+constant -18.09336666 -5.5963588 18.1598105 -9.0688320 12.989079589
+
+Weights W:
+(This is the loading matrix)
+
+             L_PP.l1     L_PIB.l1       L_GG.l1      L_GC.l1      L_GK.l1
+L_PP.d  -0.170837587 -0.003662898  0.0575157278 -0.131035864  0.013545373
+L_PIB.d -0.005989066 -0.017212711  0.0395195792  0.093970593 -0.008844093
+L_GG.d  -0.014904228 -0.131448226  0.0984319174  0.031597461  0.065662423
+L_GC.d  -0.202032138  0.037061936  0.0239556762 -0.053822660  0.023277256
+L_GK.d   0.107879149  0.040323523  0.0399504908  0.097749889  0.035514573
+L_IF.d  -0.130986197  0.022476659 -0.0809102756 -0.027650974  0.078040213
+L_IVA.d  0.034755025 -0.021334929 -0.1195008720 -0.006213521  0.037895083
+L_ICE.d -0.086456592 -0.026877165 -0.0523795313  0.110418160 -0.018931774
+L_IR.d  -0.244164374 -0.033087565 -0.0007176711  0.055140201 -0.006378733
+             L_IF.l1     L_IVA.l1     L_ICE.l1       L_IR.l1      constant
+L_PP.d  -0.065563423 -0.012443347 -0.015033901 -0.0218652619  7.964410e-16
+L_PIB.d -0.057023595  0.001508587 -0.029896084  0.0119994823 -2.777417e-17
+L_GG.d   0.024103879 -0.007603056 -0.010517381  0.0042684620  2.576200e-15
+L_GC.d   0.025564965  0.013161977 -0.008089357  0.0011980029  5.434942e-16
+L_GK.d  -0.033141892  0.009359561  0.011561300 -0.0161955978  5.953449e-16
+L_IF.d  -0.050478050 -0.015256264 -0.014706610  0.0046688332 -2.897984e-16
+L_IVA.d -0.023889710  0.023095483 -0.008423701 -0.0001829324 -2.094494e-16
+L_ICE.d  0.069818273 -0.004381045 -0.008119242 -0.0154794202 -1.182713e-15
+L_IR.d  -0.007205277  0.003809481  0.018052746  0.0066262475 -6.074391e-16</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">--- Johansen EIGEN ---</span><span class="sc">\n</span><span class="st">"</span>); <span class="fu">print</span>(<span class="fu">summary</span>(j_eig))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- Johansen EIGEN ---</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+###################### 
+# Johansen-Procedure # 
+###################### 
+
+Test type: maximal eigenvalue statistic (lambda max) , without linear trend and constant in cointegration 
+
+Eigenvalues (lambda):
+ [1]  5.909955e-01  4.423184e-01  3.813286e-01  3.171301e-01  2.314686e-01
+ [6]  2.030888e-01  1.567262e-01  9.683625e-02  4.903297e-02 -8.006596e-17
+
+Values of teststatistic and critical values of test:
+
+          test 10pct  5pct  1pct
+r &lt;= 8 |  3.52  7.52  9.24 12.97
+r &lt;= 7 |  7.13 13.75 15.67 20.20
+r &lt;= 6 | 11.93 19.77 22.00 26.81
+r &lt;= 5 | 15.89 25.56 28.14 33.24
+r &lt;= 4 | 18.43 31.66 34.40 39.79
+r &lt;= 3 | 26.70 37.45 40.30 46.82
+r &lt;= 2 | 33.61 43.25 46.45 51.91
+r &lt;= 1 | 40.88 48.91 52.00 57.95
+r = 0  | 62.58 54.35 57.42 63.71
+
+Eigenvectors, normalised to first column:
+(These are the cointegration relations)
+
+             L_PP.l1    L_PIB.l1     L_GG.l1    L_GC.l1     L_GK.l1
+L_PP.l1    1.0000000  1.00000000  1.00000000  1.0000000   1.0000000
+L_PIB.l1   0.7324992 -2.08073054  0.06556848 -0.8190391   0.7237758
+L_GG.l1   -0.2778916  3.36639420 -1.31418394 -0.2134218  -0.8948099
+L_GC.l1   -0.1847404 -1.88785850 -0.48758497  1.3354645  -1.3605263
+L_GK.l1   -0.2480989 -1.37287595  0.01989781 -1.0902060   0.4782761
+L_IF.l1   -0.1274489  0.06782783  0.80838209 -0.3852260  -1.6148731
+L_IVA.l1   0.5791197  1.20062298  1.23863346  1.4955178   1.5141218
+L_ICE.l1   0.7588437 -1.09644442  0.41950093 -1.0926320   2.1507986
+L_IR.l1    1.3174608 -0.32179846 -0.11028251  0.4897667   0.6610095
+constant -21.3593180  7.20167336 -9.16030864 -4.6071778 -14.4253446
+              L_IF.l1   L_IVA.l1   L_ICE.l1    L_IR.l1     constant
+L_PP.l1    1.00000000  1.0000000  1.0000000  1.0000000  1.000000000
+L_PIB.l1   2.31180164  2.1965497  0.8382612 -0.4410457  0.441582292
+L_GG.l1   -0.55387332  0.1661096 -0.1437685  0.1185211 -0.563672905
+L_GC.l1   -0.54347756 -0.4730255  1.6080807 -0.8404113 -0.240905965
+L_GK.l1   -0.11323347  1.0887838 -1.1336760  0.9718469 -1.549307168
+L_IF.l1   -0.96615237  1.3870214 -0.8986143 -1.3342308 -0.491574728
+L_IVA.l1   0.97208201 -4.9683112 -0.3383076  1.9828351 -0.690720871
+L_ICE.l1   0.53517813  1.8773423  1.0909467 -0.1795450  0.840946996
+L_IR.l1   -0.01142896 -0.8260108 -3.7907235  0.2523096  0.009541541
+constant -18.09336666 -5.5963588 18.1598105 -9.0688320 12.989079589
+
+Weights W:
+(This is the loading matrix)
+
+             L_PP.l1     L_PIB.l1       L_GG.l1      L_GC.l1      L_GK.l1
+L_PP.d  -0.170837587 -0.003662898  0.0575157278 -0.131035864  0.013545373
+L_PIB.d -0.005989066 -0.017212711  0.0395195792  0.093970593 -0.008844093
+L_GG.d  -0.014904228 -0.131448226  0.0984319174  0.031597461  0.065662423
+L_GC.d  -0.202032138  0.037061936  0.0239556762 -0.053822660  0.023277256
+L_GK.d   0.107879149  0.040323523  0.0399504908  0.097749889  0.035514573
+L_IF.d  -0.130986197  0.022476659 -0.0809102756 -0.027650974  0.078040213
+L_IVA.d  0.034755025 -0.021334929 -0.1195008720 -0.006213521  0.037895083
+L_ICE.d -0.086456592 -0.026877165 -0.0523795313  0.110418160 -0.018931774
+L_IR.d  -0.244164374 -0.033087565 -0.0007176711  0.055140201 -0.006378733
+             L_IF.l1     L_IVA.l1     L_ICE.l1       L_IR.l1      constant
+L_PP.d  -0.065563423 -0.012443347 -0.015033901 -0.0218652619  7.964410e-16
+L_PIB.d -0.057023595  0.001508587 -0.029896084  0.0119994823 -2.777417e-17
+L_GG.d   0.024103879 -0.007603056 -0.010517381  0.0042684620  2.576200e-15
+L_GC.d   0.025564965  0.013161977 -0.008089357  0.0011980029  5.434942e-16
+L_GK.d  -0.033141892  0.009359561  0.011561300 -0.0161955978  5.953449e-16
+L_IF.d  -0.050478050 -0.015256264 -0.014706610  0.0046688332 -2.897984e-16
+L_IVA.d -0.023889710  0.023095483 -0.008423701 -0.0001829324 -2.094494e-16
+L_ICE.d  0.069818273 -0.004381045 -0.008119242 -0.0154794202 -1.182713e-15
+L_IR.d  -0.007205277  0.003809481  0.018052746  0.0066262475 -6.074391e-16</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>choose_r_trace <span class="ot">&lt;-</span> <span class="cf">function</span>(jobj, <span class="at">alpha =</span> <span class="fl">0.05</span>) {</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  ts <span class="ot">&lt;-</span> jobj<span class="sc">@</span>teststat</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  cv <span class="ot">&lt;-</span> jobj<span class="sc">@</span>cval[,<span class="st">"5pct"</span>]</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(ts <span class="sc">&gt;</span> cv)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="dv">1</span>, <span class="fu">choose_r_trace</span>(j_tr, <span class="fl">0.05</span>))   <span class="co"># asegura r≥1 para poder estimar VECM</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Rango de cointegración estimado (trace, 5%): r ="</span>, r, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Rango de cointegración estimado (trace, 5%): r = 1 </code></pre>
+</div>
+</div>
+<p>La salida proviene de la selección del número óptimo de rezagos <span class="math inline">\((p)\)</span> en un modelo VAR.<br>
+</p>
+<p>Los criterios de información (AIC, HQ, SC, FPE) comparan la bondad de ajuste y la penalización por complejidad del modelo (número de rezagos).</p>
+<p>El objetivo es elegir el valor de <span class="math inline">\((p)\)</span> que minimiza el criterio seleccionado.</p>
+<p>-Normalmente <strong>AIC</strong> (Akaike Information Criterion) o <strong>BIC/SC</strong> (Schwarz Criterion).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>vecm_fit <span class="ot">&lt;-</span> <span class="fu">cajorls</span>(j_tr, <span class="at">r =</span> r)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">--- Beta (vectores cointegrados estimados) ---</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- Beta (vectores cointegrados estimados) ---</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vecm_fit<span class="sc">$</span>beta)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                ect1
+L_PP.l1    1.0000000
+L_PIB.l1   0.7324992
+L_GG.l1   -0.2778916
+L_GC.l1   -0.1847404
+L_GK.l1   -0.2480989
+L_IF.l1   -0.1274489
+L_IVA.l1   0.5791197
+L_ICE.l1   0.7588437
+L_IR.l1    1.3174608
+constant -21.3593180</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>var_from_vecm <span class="ot">&lt;-</span> <span class="fu">vec2var</span>(j_tr, <span class="at">r =</span> r)  </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Función para elejir r 5%</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">--- Portmanteau ---</span><span class="sc">\n</span><span class="st">"</span>); <span class="fu">print</span>(<span class="fu">serial.test</span>(var_from_vecm, <span class="at">lags.pt =</span> <span class="dv">12</span>, <span class="at">type =</span> <span class="st">"PT.asymptotic"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- Portmanteau ---</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Portmanteau Test (asymptotic)
+
+data:  Residuals of VAR object var_from_vecm
+Chi-squared = 854.21, df = 819, p-value = 0.191</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$serial
+
+    Portmanteau Test (asymptotic)
+
+data:  Residuals of VAR object var_from_vecm
+Chi-squared = 854.21, df = 819, p-value = 0.191</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">--- ARCH ---</span><span class="sc">\n</span><span class="st">"</span>); <span class="fu">print</span>(<span class="fu">arch.test</span>(var_from_vecm, <span class="at">lags.multi =</span> <span class="dv">5</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- ARCH ---</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    ARCH (multivariate)
+
+data:  Residuals of VAR object var_from_vecm
+Chi-squared = 2925, df = 10125, p-value = 1</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$arch.mul
+
+    ARCH (multivariate)
+
+data:  Residuals of VAR object var_from_vecm
+Chi-squared = 2925, df = 10125, p-value = 1</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">--- Normalidad ---</span><span class="sc">\n</span><span class="st">"</span>); <span class="fu">print</span>(<span class="fu">normality.test</span>(var_from_vecm))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- Normalidad ---</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$JB
+
+    JB-Test (multivariate)
+
+data:  Residuals of VAR object var_from_vecm
+Chi-squared = 12.03, df = 18, p-value = 0.8457
+
+
+$Skewness
+
+    Skewness only (multivariate)
+
+data:  Residuals of VAR object var_from_vecm
+Chi-squared = 7.3634, df = 9, p-value = 0.5993
+
+
+$Kurtosis
+
+    Kurtosis only (multivariate)
+
+data:  Residuals of VAR object var_from_vecm
+Chi-squared = 4.6671, df = 9, p-value = 0.8623</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$jb.mul
+$jb.mul$JB
+
+    JB-Test (multivariate)
+
+data:  Residuals of VAR object var_from_vecm
+Chi-squared = 12.03, df = 18, p-value = 0.8457
+
+
+$jb.mul$Skewness
+
+    Skewness only (multivariate)
+
+data:  Residuals of VAR object var_from_vecm
+Chi-squared = 7.3634, df = 9, p-value = 0.5993
+
+
+$jb.mul$Kurtosis
+
+    Kurtosis only (multivariate)
+
+data:  Residuals of VAR object var_from_vecm
+Chi-squared = 4.6671, df = 9, p-value = 0.8623</code></pre>
+</div>
+</div>
+<p><strong>Estimación Estabilidad</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>var_levels <span class="ot">&lt;-</span> <span class="fu">VAR</span>(Y_ts, <span class="at">p =</span> Kj, <span class="at">type =</span> <span class="st">"const"</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>mod_roots <span class="ot">&lt;-</span> <span class="fu">roots</span>(var_levels, <span class="at">modulus =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Módulos de autovalores (VAR en niveles, p=Kj):</span><span class="sc">\n</span><span class="st">"</span>); <span class="fu">print</span>(<span class="fu">round</span>(<span class="fu">sort</span>(mod_roots, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), <span class="dv">4</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Módulos de autovalores (VAR en niveles, p=Kj):</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0.9700 0.9390 0.9390 0.9112 0.9112 0.7489 0.7489 0.6939 0.6939 0.5709
+[11] 0.5709 0.4576 0.4576 0.3993 0.2880 0.1840 0.1840 0.0639</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">roots</span>(var_levels))   <span class="co"># puntos dentro del círculo =&gt; estable</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Modelos-Estructurales_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="var-equivalente-del-vecm-para-irffevdforecast" class="level2" data-number="1.10">
+<h2 data-number="1.10" class="anchored" data-anchor-id="var-equivalente-del-vecm-para-irffevdforecast"><span class="header-section-number">1.10</span> VAR equivalente del VECM (para IRF/FEVD/forecast)</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>dY_ts <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(<span class="fu">diff</span>(Y_ts))</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>sel_d <span class="ot">&lt;-</span> <span class="fu">VARselect</span>(dY_ts, <span class="at">lag.max =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">"const"</span>)</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>p_d <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(<span class="fu">as.integer</span>(sel_d<span class="sc">$</span>selection[<span class="st">"AIC(n)"</span>])), <span class="dv">2</span>L, <span class="fu">as.integer</span>(sel_d<span class="sc">$</span>selection[<span class="st">"AIC(n)"</span>]))</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">VAR(Δ) seleccionado (AIC): p_d ="</span>, p_d, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+VAR(Δ) seleccionado (AIC): p_d = 1 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>var_d <span class="ot">&lt;-</span> <span class="fu">VAR</span>(dY_ts, <span class="at">p =</span> p_d, <span class="at">type =</span> <span class="st">"const"</span>)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>stb_diff <span class="ot">&lt;-</span> <span class="fu">stability</span>(var_d, <span class="at">type =</span> <span class="st">"OLS-CUSUM"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">"stability_VAR_diff_CUSUM.png"</span>, <span class="at">width =</span> <span class="dv">1400</span>, <span class="at">height =</span> <span class="dv">900</span>, <span class="at">res =</span> <span class="dv">150</span>)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(stb_diff)</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>png 
+  2 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Gráfico guardado en: stability_VAR_diff_CUSUM.png</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Gráfico guardado en: stability_VAR_diff_CUSUM.png</code></pre>
+</div>
+</div>
+<p><strong>IRF</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>irf_pp_pib <span class="ot">&lt;-</span> <span class="fu">irf</span>(var_from_vecm, <span class="at">impulse =</span> <span class="st">"L_PP"</span>, <span class="at">response =</span> <span class="st">"L_PIB"</span>,</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">n.ahead =</span> <span class="dv">12</span>, <span class="at">boot =</span> <span class="cn">TRUE</span>, <span class="at">ci =</span> <span class="fl">0.95</span>)</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(irf_pp_pib)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Modelos-Estructurales_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>fevd_v <span class="ot">&lt;-</span> <span class="fu">fevd</span>(var_from_vecm, <span class="at">n.ahead =</span> <span class="dv">12</span>)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Cierra cualquier gráfico abierto</span></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (<span class="sc">!</span><span class="fu">is.null</span>(<span class="fu">dev.list</span>())) <span class="fu">dev.off</span>()</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Exporta el FEVD a un PNG</span></span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">"FEVD_VECM.png"</span>, <span class="at">width =</span> <span class="dv">1400</span>, <span class="at">height =</span> <span class="dv">900</span>, <span class="at">res =</span> <span class="dv">150</span>)</span>
+<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>))  <span class="co"># Márgenes reducidas</span></span>
+<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fevd_v)</span>
+<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>pdf 
+  2 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"✅ Gráfico FEVD guardado como 'FEVD_VECM.png' en tu directorio de trabajo.</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Gráfico FEVD guardado como 'FEVD_VECM.png' en tu directorio de trabajo.</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># IRF: L_PP → L_PIB</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">"IRF_L_PP_to_L_PIB.png"</span>, <span class="at">width =</span> <span class="dv">1400</span>, <span class="at">height =</span> <span class="dv">900</span>, <span class="at">res =</span> <span class="dv">150</span>)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(irf_pp_pib)</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>png 
+  2 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"✅ Gráfico IRF guardado como 'IRF_L_PP_to_L_PIB.png'</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Gráfico IRF guardado como 'IRF_L_PP_to_L_PIB.png'</code></pre>
+</div>
+</div>
+</section>
+<section id="modelo-svar" class="level2" data-number="1.11">
+<h2 data-number="1.11" class="anchored" data-anchor-id="modelo-svar"><span class="header-section-number">1.11</span> <strong>Modelo SVAR</strong></h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 0) Paquetes y setup</span></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("zoo","ggplot2","tseries","vars","urca","forecast","dplyr","tidyr"))</span></span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vars)</span>
+<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(urca)</span>
+<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb77-12"><a href="#cb77-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb77-13"><a href="#cb77-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-14"><a href="#cb77-14" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb77-15"><a href="#cb77-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-16"><a href="#cb77-16" aria-hidden="true" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb77-17"><a href="#cb77-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Calendario y variables (72 trimestres 2007Q1–2024Q4)</span></span>
+<span id="cb77-18"><a href="#cb77-18" aria-hidden="true" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb77-19"><a href="#cb77-19" aria-hidden="true" tabindex="-1"></a>T  <span class="ot">&lt;-</span> <span class="dv">72</span></span>
+<span id="cb77-20"><a href="#cb77-20" aria-hidden="true" tabindex="-1"></a>fq <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb77-21"><a href="#cb77-21" aria-hidden="true" tabindex="-1"></a>fechas <span class="ot">&lt;-</span> <span class="fu">as.yearqtr</span>(<span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">"2007-01-01"</span>),</span>
+<span id="cb77-22"><a href="#cb77-22" aria-hidden="true" tabindex="-1"></a>                         <span class="at">by =</span> <span class="st">"quarter"</span>, <span class="at">length.out =</span> T))</span>
+<span id="cb77-23"><a href="#cb77-23" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"L_PP"</span>,<span class="st">"L_PIB"</span>,<span class="st">"L_GG"</span>,<span class="st">"L_GC"</span>,<span class="st">"L_GK"</span>,<span class="st">"L_IF"</span>,<span class="st">"L_IVA"</span>,<span class="st">"L_ICE"</span>,<span class="st">"L_IR"</span>)</span>
+<span id="cb77-24"><a href="#cb77-24" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">length</span>(vars)</span>
+<span id="cb77-25"><a href="#cb77-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-26"><a href="#cb77-26" aria-hidden="true" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb77-27"><a href="#cb77-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) DGP: I(1) con 2 cointegraciones plausibles (para simular)</span></span>
+<span id="cb77-28"><a href="#cb77-28" aria-hidden="true" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb77-29"><a href="#cb77-29" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> k, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">dimnames =</span> <span class="fu">list</span>(vars, <span class="fu">c</span>(<span class="st">"CI_gasto"</span>,<span class="st">"CI_tributos"</span>)))</span>
+<span id="cb77-30"><a href="#cb77-30" aria-hidden="true" tabindex="-1"></a>beta[<span class="st">"L_GG"</span>,<span class="st">"CI_gasto"</span>] <span class="ot">&lt;-</span> <span class="dv">1</span>;   beta[<span class="st">"L_GC"</span>,<span class="st">"CI_gasto"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.7</span>; beta[<span class="st">"L_GK"</span>,<span class="st">"CI_gasto"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.3</span></span>
+<span id="cb77-31"><a href="#cb77-31" aria-hidden="true" tabindex="-1"></a>beta[<span class="st">"L_IF"</span>,<span class="st">"CI_tributos"</span>] <span class="ot">&lt;-</span> <span class="dv">1</span>; beta[<span class="st">"L_IVA"</span>,<span class="st">"CI_tributos"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.5</span>; beta[<span class="st">"L_IR"</span>,<span class="st">"CI_tributos"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.3</span>; beta[<span class="st">"L_ICE"</span>,<span class="st">"CI_tributos"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.2</span></span>
+<span id="cb77-32"><a href="#cb77-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-33"><a href="#cb77-33" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> k, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">dimnames =</span> <span class="fu">list</span>(vars, <span class="fu">c</span>(<span class="st">"CI_gasto"</span>,<span class="st">"CI_tributos"</span>)))</span>
+<span id="cb77-34"><a href="#cb77-34" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_GG"</span>,<span class="st">"CI_gasto"</span>]  <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.25</span></span>
+<span id="cb77-35"><a href="#cb77-35" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_GC"</span>,<span class="st">"CI_gasto"</span>]  <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.10</span></span>
+<span id="cb77-36"><a href="#cb77-36" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_GK"</span>,<span class="st">"CI_gasto"</span>]  <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.05</span></span>
+<span id="cb77-37"><a href="#cb77-37" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_IF"</span>,<span class="st">"CI_tributos"</span>]  <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.20</span></span>
+<span id="cb77-38"><a href="#cb77-38" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_IVA"</span>,<span class="st">"CI_tributos"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.10</span></span>
+<span id="cb77-39"><a href="#cb77-39" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_IR"</span>,<span class="st">"CI_tributos"</span>]  <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.08</span></span>
+<span id="cb77-40"><a href="#cb77-40" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_ICE"</span>,<span class="st">"CI_tributos"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.05</span></span>
+<span id="cb77-41"><a href="#cb77-41" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_PIB"</span>,<span class="st">"CI_gasto"</span>]    <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.02</span></span>
+<span id="cb77-42"><a href="#cb77-42" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_PIB"</span>,<span class="st">"CI_tributos"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.01</span></span>
+<span id="cb77-43"><a href="#cb77-43" aria-hidden="true" tabindex="-1"></a>alpha[<span class="st">"L_PP"</span>,] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)  <span class="co"># petróleo no corrige directamente</span></span>
+<span id="cb77-44"><a href="#cb77-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-45"><a href="#cb77-45" aria-hidden="true" tabindex="-1"></a>Gamma1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> k, <span class="at">ncol =</span> k, <span class="at">dimnames =</span> <span class="fu">list</span>(vars, vars))</span>
+<span id="cb77-46"><a href="#cb77-46" aria-hidden="true" tabindex="-1"></a>Gamma1[<span class="st">"L_PIB"</span>,<span class="st">"L_PP"</span>] <span class="ot">&lt;-</span> <span class="fl">0.10</span></span>
+<span id="cb77-47"><a href="#cb77-47" aria-hidden="true" tabindex="-1"></a>Gamma1[<span class="st">"L_IF"</span>,<span class="st">"L_PP"</span>]  <span class="ot">&lt;-</span> <span class="fl">0.08</span></span>
+<span id="cb77-48"><a href="#cb77-48" aria-hidden="true" tabindex="-1"></a>Gamma1[<span class="st">"L_IF"</span>,<span class="st">"L_IVA"</span>] <span class="ot">&lt;-</span> <span class="fl">0.10</span>; Gamma1[<span class="st">"L_IF"</span>,<span class="st">"L_IR"</span>] <span class="ot">&lt;-</span> <span class="fl">0.07</span>; Gamma1[<span class="st">"L_IF"</span>,<span class="st">"L_ICE"</span>] <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb77-49"><a href="#cb77-49" aria-hidden="true" tabindex="-1"></a>Gamma1[<span class="st">"L_GG"</span>,<span class="st">"L_PIB"</span>] <span class="ot">&lt;-</span> <span class="fl">0.06</span></span>
+<span id="cb77-50"><a href="#cb77-50" aria-hidden="true" tabindex="-1"></a>Gamma1[<span class="st">"L_GC"</span>,<span class="st">"L_GG"</span>]  <span class="ot">&lt;-</span> <span class="fl">0.10</span></span>
+<span id="cb77-51"><a href="#cb77-51" aria-hidden="true" tabindex="-1"></a>Gamma1[<span class="st">"L_GK"</span>,<span class="st">"L_GG"</span>]  <span class="ot">&lt;-</span> <span class="fl">0.06</span></span>
+<span id="cb77-52"><a href="#cb77-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-53"><a href="#cb77-53" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="fu">c</span>(<span class="fl">0.20</span>, <span class="fl">0.18</span>, <span class="fl">0.15</span>, <span class="fl">0.12</span>, <span class="fl">0.12</span>, <span class="fl">0.18</span>, <span class="fl">0.15</span>, <span class="fl">0.12</span>, <span class="fl">0.12</span>))</span>
+<span id="cb77-54"><a href="#cb77-54" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(Sigma) <span class="ot">&lt;-</span> <span class="fu">list</span>(vars, vars)</span>
+<span id="cb77-55"><a href="#cb77-55" aria-hidden="true" tabindex="-1"></a>Sigma[<span class="st">"L_PIB"</span>,<span class="st">"L_PP"</span>] <span class="ot">&lt;-</span> Sigma[<span class="st">"L_PP"</span>,<span class="st">"L_PIB"</span>] <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb77-56"><a href="#cb77-56" aria-hidden="true" tabindex="-1"></a>Sigma[<span class="st">"L_IF"</span>,<span class="st">"L_PP"</span>]  <span class="ot">&lt;-</span> Sigma[<span class="st">"L_PP"</span>,<span class="st">"L_IF"</span>]  <span class="ot">&lt;-</span> <span class="fl">0.04</span></span>
+<span id="cb77-57"><a href="#cb77-57" aria-hidden="true" tabindex="-1"></a>Sigma[<span class="st">"L_IF"</span>,<span class="st">"L_IVA"</span>] <span class="ot">&lt;-</span> Sigma[<span class="st">"L_IVA"</span>,<span class="st">"L_IF"</span>] <span class="ot">&lt;-</span> <span class="fl">0.06</span></span>
+<span id="cb77-58"><a href="#cb77-58" aria-hidden="true" tabindex="-1"></a>Sigma[<span class="st">"L_GG"</span>,<span class="st">"L_PIB"</span>] <span class="ot">&lt;-</span> Sigma[<span class="st">"L_PIB"</span>,<span class="st">"L_GG"</span>] <span class="ot">&lt;-</span> <span class="fl">0.04</span></span>
+<span id="cb77-59"><a href="#cb77-59" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> (Sigma <span class="sc">+</span> <span class="fu">t</span>(Sigma))<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb77-60"><a href="#cb77-60" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">chol</span>(Sigma))</span>
+<span id="cb77-61"><a href="#cb77-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-62"><a href="#cb77-62" aria-hidden="true" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb77-63"><a href="#cb77-63" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Simulación VECM (ΔY_t = Γ1 ΔY_{t-1} + α β' Y_{t-1} + ε_t)</span></span>
+<span id="cb77-64"><a href="#cb77-64" aria-hidden="true" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb77-65"><a href="#cb77-65" aria-hidden="true" tabindex="-1"></a>Y  <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> k, <span class="at">ncol =</span> T, <span class="at">dimnames =</span> <span class="fu">list</span>(vars, <span class="cn">NULL</span>))</span>
+<span id="cb77-66"><a href="#cb77-66" aria-hidden="true" tabindex="-1"></a>dY <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> k, <span class="at">ncol =</span> T, <span class="at">dimnames =</span> <span class="fu">list</span>(vars, <span class="cn">NULL</span>))</span>
+<span id="cb77-67"><a href="#cb77-67" aria-hidden="true" tabindex="-1"></a>Y[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">4.6</span>, <span class="fl">8.5</span>, <span class="fl">9.2</span>, <span class="fl">8.9</span>, <span class="fl">7.8</span>, <span class="fl">8.6</span>, <span class="fl">7.9</span>, <span class="fl">6.5</span>, <span class="fl">7.6</span>)</span>
+<span id="cb77-68"><a href="#cb77-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-69"><a href="#cb77-69" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>T) {</span>
+<span id="cb77-70"><a href="#cb77-70" aria-hidden="true" tabindex="-1"></a>  eps_t  <span class="ot">&lt;-</span> C <span class="sc">%*%</span> <span class="fu">rnorm</span>(k)</span>
+<span id="cb77-71"><a href="#cb77-71" aria-hidden="true" tabindex="-1"></a>  EC_lag <span class="ot">&lt;-</span> <span class="fu">t</span>(beta) <span class="sc">%*%</span> Y[, t<span class="dv">-1</span>]           <span class="co"># (2x9)*(9x1) = (2x1)</span></span>
+<span id="cb77-72"><a href="#cb77-72" aria-hidden="true" tabindex="-1"></a>  dY[,t] <span class="ot">&lt;-</span> Gamma1 <span class="sc">%*%</span> dY[,t<span class="dv">-1</span>] <span class="sc">+</span> alpha <span class="sc">%*%</span> EC_lag <span class="sc">+</span> eps_t</span>
+<span id="cb77-73"><a href="#cb77-73" aria-hidden="true" tabindex="-1"></a>  Y[,t]  <span class="ot">&lt;-</span> Y[,t<span class="dv">-1</span>] <span class="sc">+</span> dY[,t]</span>
+<span id="cb77-74"><a href="#cb77-74" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb77-75"><a href="#cb77-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-76"><a href="#cb77-76" aria-hidden="true" tabindex="-1"></a>Y_ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">t</span>(Y), <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2007</span>,<span class="dv">1</span>), <span class="at">frequency =</span> fq); <span class="fu">colnames</span>(Y_ts) <span class="ot">&lt;-</span> vars</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>dY_ts <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(<span class="fu">diff</span>(Y_ts))</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>sel_d <span class="ot">&lt;-</span> <span class="fu">VARselect</span>(dY_ts, <span class="at">lag.max =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">"const"</span>)</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>p_d <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(<span class="fu">as.integer</span>(sel_d<span class="sc">$</span>selection[<span class="st">"AIC(n)"</span>])), <span class="dv">2</span>L, <span class="fu">as.integer</span>(sel_d<span class="sc">$</span>selection[<span class="st">"AIC(n)"</span>]))</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Rezagos VAR(Δ) (AIC): p_d ="</span>, p_d, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rezagos VAR(Δ) (AIC): p_d = 1 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>var_d <span class="ot">&lt;-</span> <span class="fu">VAR</span>(dY_ts, <span class="at">p =</span> p_d, <span class="at">type =</span> <span class="st">"const"</span>)   <span class="co"># &lt;- 'varest'</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Resumen VAR(Δ):</span><span class="sc">\n</span><span class="st">"</span>); <span class="fu">print</span>(<span class="fu">summary</span>(var_d))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Resumen VAR(Δ):</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+VAR Estimation Results:
+========================= 
+Endogenous variables: L_PP, L_PIB, L_GG, L_GC, L_GK, L_IF, L_IVA, L_ICE, L_IR 
+Deterministic variables: const 
+Sample size: 70 
+Log Likelihood: -196.861 
+Roots of the characteristic polynomial:
+0.3844 0.3699 0.3699 0.2873 0.2873 0.2268 0.1286 0.1286 0.1173
+Call:
+VAR(y = dY_ts, p = p_d, type = "const")
+
+
+Estimation results for equation L_PP: 
+===================================== 
+L_PP = L_PP.l1 + L_PIB.l1 + L_GG.l1 + L_GC.l1 + L_GK.l1 + L_IF.l1 + L_IVA.l1 + L_ICE.l1 + L_IR.l1 + const 
+
+          Estimate Std. Error t value Pr(&gt;|t|)  
+L_PP.l1   0.006144   0.139235   0.044   0.9649  
+L_PIB.l1 -0.270701   0.160059  -1.691   0.0960 .
+L_GG.l1   0.050977   0.124205   0.410   0.6830  
+L_GC.l1  -0.262953   0.220490  -1.193   0.2377  
+L_GK.l1  -0.160439   0.177812  -0.902   0.3705  
+L_IF.l1   0.190770   0.162370   1.175   0.2447  
+L_IVA.l1 -0.229206   0.182196  -1.258   0.2133  
+L_ICE.l1 -0.145232   0.156537  -0.928   0.3572  
+L_IR.l1   0.318083   0.179151   1.775   0.0809 .
+const    -0.021665   0.060722  -0.357   0.7225  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Residual standard error: 0.4629 on 60 degrees of freedom
+Multiple R-Squared: 0.1471, Adjusted R-squared: 0.01921 
+F-statistic:  1.15 on 9 and 60 DF,  p-value: 0.3431 
+
+
+Estimation results for equation L_PIB: 
+====================================== 
+L_PIB = L_PP.l1 + L_PIB.l1 + L_GG.l1 + L_GC.l1 + L_GK.l1 + L_IF.l1 + L_IVA.l1 + L_ICE.l1 + L_IR.l1 + const 
+
+          Estimate Std. Error t value Pr(&gt;|t|)  
+L_PP.l1   0.013107   0.117795   0.111   0.9118  
+L_PIB.l1 -0.108425   0.135413  -0.801   0.4265  
+L_GG.l1   0.139025   0.105079   1.323   0.1908  
+L_GC.l1  -0.115211   0.186538  -0.618   0.5392  
+L_GK.l1   0.016799   0.150431   0.112   0.9115  
+L_IF.l1   0.081897   0.137368   0.596   0.5533  
+L_IVA.l1  0.174036   0.154141   1.129   0.2634  
+L_ICE.l1 -0.233048   0.132433  -1.760   0.0835 .
+L_IR.l1   0.246361   0.151565   1.625   0.1093  
+const    -0.009392   0.051372  -0.183   0.8556  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Residual standard error: 0.3916 on 60 degrees of freedom
+Multiple R-Squared: 0.1263, Adjusted R-squared: -0.004795 
+F-statistic: 0.9634 on 9 and 60 DF,  p-value: 0.4789 
+
+
+Estimation results for equation L_GG: 
+===================================== 
+L_GG = L_PP.l1 + L_PIB.l1 + L_GG.l1 + L_GC.l1 + L_GK.l1 + L_IF.l1 + L_IVA.l1 + L_ICE.l1 + L_IR.l1 + const 
+
+          Estimate Std. Error t value Pr(&gt;|t|)  
+L_PP.l1   0.129842   0.147409   0.881   0.3819  
+L_PIB.l1  0.037703   0.169457   0.222   0.8247  
+L_GG.l1   0.147612   0.131497   1.123   0.2661  
+L_GC.l1   0.106570   0.233435   0.457   0.6497  
+L_GK.l1   0.107221   0.188251   0.570   0.5711  
+L_IF.l1  -0.006656   0.171903  -0.039   0.9692  
+L_IVA.l1  0.329128   0.192893   1.706   0.0931 .
+L_ICE.l1  0.083153   0.165728   0.502   0.6177  
+L_IR.l1   0.304865   0.189670   1.607   0.1132  
+const    -0.023708   0.064287  -0.369   0.7136  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Residual standard error: 0.4901 on 60 degrees of freedom
+Multiple R-Squared: 0.1326, Adjusted R-squared: 0.002536 
+F-statistic: 1.019 on 9 and 60 DF,  p-value: 0.4352 
+
+
+Estimation results for equation L_GC: 
+===================================== 
+L_GC = L_PP.l1 + L_PIB.l1 + L_GG.l1 + L_GC.l1 + L_GK.l1 + L_IF.l1 + L_IVA.l1 + L_ICE.l1 + L_IR.l1 + const 
+
+          Estimate Std. Error t value Pr(&gt;|t|)  
+L_PP.l1  -0.027326   0.086987  -0.314   0.7545  
+L_PIB.l1  0.027759   0.099997   0.278   0.7823  
+L_GG.l1   0.000186   0.077597   0.002   0.9981  
+L_GC.l1  -0.116962   0.137752  -0.849   0.3992  
+L_GK.l1   0.030642   0.111088   0.276   0.7836  
+L_IF.l1  -0.157829   0.101441  -1.556   0.1250  
+L_IVA.l1  0.025977   0.113827   0.228   0.8203  
+L_ICE.l1  0.198581   0.097797   2.031   0.0467 *
+L_IR.l1   0.039181   0.111925   0.350   0.7275  
+const    -0.069440   0.037936  -1.830   0.0722 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Residual standard error: 0.2892 on 60 degrees of freedom
+Multiple R-Squared: 0.1607, Adjusted R-squared: 0.03475 
+F-statistic: 1.276 on 9 and 60 DF,  p-value: 0.2687 
+
+
+Estimation results for equation L_GK: 
+===================================== 
+L_GK = L_PP.l1 + L_PIB.l1 + L_GG.l1 + L_GC.l1 + L_GK.l1 + L_IF.l1 + L_IVA.l1 + L_ICE.l1 + L_IR.l1 + const 
+
+         Estimate Std. Error t value Pr(&gt;|t|)
+L_PP.l1  -0.01966    0.10528  -0.187    0.852
+L_PIB.l1  0.06611    0.12103   0.546    0.587
+L_GG.l1  -0.04100    0.09392  -0.437    0.664
+L_GC.l1   0.10285    0.16673   0.617    0.540
+L_GK.l1  -0.11631    0.13445  -0.865    0.390
+L_IF.l1   0.19534    0.12278   1.591    0.117
+L_IVA.l1 -0.13374    0.13777  -0.971    0.336
+L_ICE.l1 -0.16472    0.11837  -1.392    0.169
+L_IR.l1   0.12174    0.13547   0.899    0.372
+const    -0.04998    0.04592  -1.088    0.281
+
+
+Residual standard error: 0.35 on 60 degrees of freedom
+Multiple R-Squared: 0.1415, Adjusted R-squared: 0.01277 
+F-statistic: 1.099 on 9 and 60 DF,  p-value: 0.3773 
+
+
+Estimation results for equation L_IF: 
+===================================== 
+L_IF = L_PP.l1 + L_PIB.l1 + L_GG.l1 + L_GC.l1 + L_GK.l1 + L_IF.l1 + L_IVA.l1 + L_ICE.l1 + L_IR.l1 + const 
+
+         Estimate Std. Error t value Pr(&gt;|t|)
+L_PP.l1  -0.09814    0.12374  -0.793    0.431
+L_PIB.l1 -0.08250    0.14224  -0.580    0.564
+L_GG.l1  -0.11260    0.11038  -1.020    0.312
+L_GC.l1  -0.14983    0.19595  -0.765    0.447
+L_GK.l1  -0.25196    0.15802  -1.594    0.116
+L_IF.l1   0.22234    0.14430   1.541    0.129
+L_IVA.l1  0.24038    0.16192   1.485    0.143
+L_ICE.l1  0.08121    0.13911   0.584    0.562
+L_IR.l1  -0.04844    0.15921  -0.304    0.762
+const    -0.04600    0.05396  -0.852    0.397
+
+
+Residual standard error: 0.4114 on 60 degrees of freedom
+Multiple R-Squared: 0.2204, Adjusted R-squared: 0.1035 
+F-statistic: 1.885 on 9 and 60 DF,  p-value: 0.07158 
+
+
+Estimation results for equation L_IVA: 
+====================================== 
+L_IVA = L_PP.l1 + L_PIB.l1 + L_GG.l1 + L_GC.l1 + L_GK.l1 + L_IF.l1 + L_IVA.l1 + L_ICE.l1 + L_IR.l1 + const 
+
+         Estimate Std. Error t value Pr(&gt;|t|)
+L_PP.l1  -0.12070    0.11075  -1.090    0.280
+L_PIB.l1  0.19782    0.12732   1.554    0.126
+L_GG.l1  -0.02788    0.09880  -0.282    0.779
+L_GC.l1   0.15912    0.17539   0.907    0.368
+L_GK.l1  -0.11119    0.14144  -0.786    0.435
+L_IF.l1   0.03385    0.12916   0.262    0.794
+L_IVA.l1  0.18860    0.14493   1.301    0.198
+L_ICE.l1  0.03268    0.12452   0.262    0.794
+L_IR.l1  -0.14104    0.14251  -0.990    0.326
+const    -0.03429    0.04830  -0.710    0.481
+
+
+Residual standard error: 0.3682 on 60 degrees of freedom
+Multiple R-Squared: 0.1624, Adjusted R-squared: 0.03672 
+F-statistic: 1.292 on 9 and 60 DF,  p-value: 0.2601 
+
+
+Estimation results for equation L_ICE: 
+====================================== 
+L_ICE = L_PP.l1 + L_PIB.l1 + L_GG.l1 + L_GC.l1 + L_GK.l1 + L_IF.l1 + L_IVA.l1 + L_ICE.l1 + L_IR.l1 + const 
+
+         Estimate Std. Error t value Pr(&gt;|t|)  
+L_PP.l1   0.11530    0.11148   1.034   0.3052  
+L_PIB.l1 -0.07117    0.12816  -0.555   0.5807  
+L_GG.l1  -0.08798    0.09945  -0.885   0.3798  
+L_GC.l1  -0.07259    0.17654  -0.411   0.6824  
+L_GK.l1  -0.20319    0.14237  -1.427   0.1587  
+L_IF.l1  -0.11829    0.13001  -0.910   0.3665  
+L_IVA.l1  0.31812    0.14588   2.181   0.0331 *
+L_ICE.l1 -0.13038    0.12534  -1.040   0.3024  
+L_IR.l1   0.06344    0.14344   0.442   0.6599  
+const    -0.06346    0.04862  -1.305   0.1968  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Residual standard error: 0.3706 on 60 degrees of freedom
+Multiple R-Squared: 0.1263, Adjusted R-squared: -0.004702 
+F-statistic: 0.9641 on 9 and 60 DF,  p-value: 0.4784 
+
+
+Estimation results for equation L_IR: 
+===================================== 
+L_IR = L_PP.l1 + L_PIB.l1 + L_GG.l1 + L_GC.l1 + L_GK.l1 + L_IF.l1 + L_IVA.l1 + L_ICE.l1 + L_IR.l1 + const 
+
+          Estimate Std. Error t value Pr(&gt;|t|)  
+L_PP.l1   0.019853   0.097462   0.204   0.8393  
+L_PIB.l1 -0.083797   0.112039  -0.748   0.4574  
+L_GG.l1  -0.006524   0.086942  -0.075   0.9404  
+L_GC.l1  -0.052402   0.154340  -0.340   0.7354  
+L_GK.l1   0.012229   0.124466   0.098   0.9221  
+L_IF.l1   0.127941   0.113657   1.126   0.2648  
+L_IVA.l1 -0.260281   0.127535  -2.041   0.0457 *
+L_ICE.l1 -0.006577   0.109574  -0.060   0.9523  
+L_IR.l1  -0.022772   0.125403  -0.182   0.8565  
+const    -0.034965   0.042504  -0.823   0.4140  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Residual standard error: 0.324 on 60 degrees of freedom
+Multiple R-Squared: 0.08923,    Adjusted R-squared: -0.04738 
+F-statistic: 0.6532 on 9 and 60 DF,  p-value: 0.7471 
+
+
+
+Covariance matrix of residuals:
+            L_PP     L_PIB      L_GG       L_GC       L_GK      L_IF      L_IVA
+L_PP   0.2142737  0.019537  0.024792  0.0385602  0.0003262  0.066916 -0.0272871
+L_PIB  0.0195370  0.153364  0.055971 -0.0060646 -0.0080788  0.035731  0.0096208
+L_GG   0.0247924  0.055971  0.240173 -0.0075004 -0.0231070 -0.003968 -0.0263040
+L_GC   0.0385602 -0.006065 -0.007500  0.0836341 -0.0236269  0.023771  0.0008537
+L_GK   0.0003262 -0.008079 -0.023107 -0.0236269  0.1225169 -0.022639 -0.0023202
+L_IF   0.0669159  0.035731 -0.003968  0.0237714 -0.0226385  0.169227  0.0631867
+L_IVA -0.0272871  0.009621 -0.026304  0.0008537 -0.0023202  0.063187  0.1355797
+L_ICE -0.0335923 -0.016986  0.016064 -0.0051152 -0.0121047 -0.024500  0.0048957
+L_IR  -0.0173999 -0.011026  0.019756  0.0168764 -0.0151485 -0.003703 -0.0114097
+          L_ICE      L_IR
+L_PP  -0.033592 -0.017400
+L_PIB -0.016986 -0.011026
+L_GG   0.016064  0.019756
+L_GC  -0.005115  0.016876
+L_GK  -0.012105 -0.015149
+L_IF  -0.024500 -0.003703
+L_IVA  0.004896 -0.011410
+L_ICE  0.137370  0.012749
+L_IR   0.012749  0.104990
+
+Correlation matrix of residuals:
+           L_PP    L_PIB     L_GG      L_GC      L_GK     L_IF     L_IVA
+L_PP   1.000000  0.10777  0.10929  0.288047  0.002013  0.35141 -0.160094
+L_PIB  0.107773  1.00000  0.29164 -0.053548 -0.058937  0.22180  0.066719
+L_GG   0.109288  0.29164  1.00000 -0.052921 -0.134705 -0.01968 -0.145768
+L_GC   0.288047 -0.05355 -0.05292  1.000000 -0.233409  0.19982  0.008017
+L_GK   0.002013 -0.05894 -0.13470 -0.233409  1.000000 -0.15722 -0.018003
+L_IF   0.351407  0.22180 -0.01968  0.199815 -0.157223  1.00000  0.417151
+L_IVA -0.160094  0.06672 -0.14577  0.008017 -0.018003  0.41715  1.000000
+L_ICE -0.195798 -0.11703  0.08844 -0.047723 -0.093306 -0.16069  0.035873
+L_IR  -0.116008 -0.08690  0.12441  0.180101 -0.133567 -0.02778 -0.095632
+         L_ICE     L_IR
+L_PP  -0.19580 -0.11601
+L_PIB -0.11703 -0.08690
+L_GG   0.08844  0.12441
+L_GC  -0.04772  0.18010
+L_GK  -0.09331 -0.13357
+L_IF  -0.16069 -0.02778
+L_IVA  0.03587 -0.09563
+L_ICE  1.00000  0.10616
+L_IR   0.10616  1.00000</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagnósticos rápidos</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Portmanteau (autocorrelación):</span><span class="sc">\n</span><span class="st">"</span>); <span class="fu">print</span>(<span class="fu">serial.test</span>(var_d, <span class="at">lags.pt =</span> <span class="dv">12</span>, <span class="at">type =</span> <span class="st">"PT.asymptotic"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Portmanteau (autocorrelación):</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Portmanteau Test (asymptotic)
+
+data:  Residuals of VAR object var_d
+Chi-squared = 824.07, df = 891, p-value = 0.9464</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$serial
+
+    Portmanteau Test (asymptotic)
+
+data:  Residuals of VAR object var_d
+Chi-squared = 824.07, df = 891, p-value = 0.9464</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">ARCH (heterocedasticidad):</span><span class="sc">\n</span><span class="st">"</span>);     <span class="fu">print</span>(<span class="fu">arch.test</span>(var_d, <span class="at">lags.multi =</span> <span class="dv">5</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ARCH (heterocedasticidad):</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    ARCH (multivariate)
+
+data:  Residuals of VAR object var_d
+Chi-squared = 2925, df = 10125, p-value = 1</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$arch.mul
+
+    ARCH (multivariate)
+
+data:  Residuals of VAR object var_d
+Chi-squared = 2925, df = 10125, p-value = 1</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Normalidad (Jarque-Bera multivariante):</span><span class="sc">\n</span><span class="st">"</span>); <span class="fu">print</span>(<span class="fu">normality.test</span>(var_d))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Normalidad (Jarque-Bera multivariante):</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$JB
+
+    JB-Test (multivariate)
+
+data:  Residuals of VAR object var_d
+Chi-squared = 15.505, df = 18, p-value = 0.6271
+
+
+$Skewness
+
+    Skewness only (multivariate)
+
+data:  Residuals of VAR object var_d
+Chi-squared = 6.9774, df = 9, p-value = 0.6395
+
+
+$Kurtosis
+
+    Kurtosis only (multivariate)
+
+data:  Residuals of VAR object var_d
+Chi-squared = 8.5275, df = 9, p-value = 0.482</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$jb.mul
+$jb.mul$JB
+
+    JB-Test (multivariate)
+
+data:  Residuals of VAR object var_d
+Chi-squared = 15.505, df = 18, p-value = 0.6271
+
+
+$jb.mul$Skewness
+
+    Skewness only (multivariate)
+
+data:  Residuals of VAR object var_d
+Chi-squared = 6.9774, df = 9, p-value = 0.6395
+
+
+$jb.mul$Kurtosis
+
+    Kurtosis only (multivariate)
+
+data:  Residuals of VAR object var_d
+Chi-squared = 8.5275, df = 9, p-value = 0.482</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estabilidad (raíces del VAR(Δ))</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>mod_roots <span class="ot">&lt;-</span> <span class="fu">roots</span>(var_d, <span class="at">modulus =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Módulos de autovalores (VAR(Δ)):</span><span class="sc">\n</span><span class="st">"</span>); <span class="fu">print</span>(<span class="fu">round</span>(<span class="fu">sort</span>(mod_roots, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), <span class="dv">4</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Módulos de autovalores (VAR(Δ)):</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3844 0.3699 0.3699 0.2873 0.2873 0.2268 0.1286 0.1286 0.1173</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>vnames_d <span class="ot">&lt;-</span> <span class="fu">colnames</span>(var_d<span class="sc">$</span>y)</span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="fu">length</span>(vnames_d)</span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a><span class="co"># A: 1 en diagonal; 0 = cero fijo; NA = libre</span></span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>Amat_d <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">1</span>, K); <span class="fu">dimnames</span>(Amat_d) <span class="ot">&lt;-</span> <span class="fu">list</span>(vnames_d, vnames_d)</span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ΔL_PP (shock de petróleo) NO recibe contemporáneos del resto:</span></span>
+<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>Amat_d[<span class="st">"L_PP"</span>, <span class="fu">setdiff</span>(vnames_d, <span class="st">"L_PP"</span>)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-10"><a href="#cb98-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Canales contemporáneos plausibles (libres)</span></span>
+<span id="cb98-11"><a href="#cb98-11" aria-hidden="true" tabindex="-1"></a>Amat_d[<span class="st">"L_PIB"</span>,<span class="st">"L_PP"</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span>      <span class="co"># petróleo → PIB</span></span>
+<span id="cb98-12"><a href="#cb98-12" aria-hidden="true" tabindex="-1"></a>Amat_d[<span class="st">"L_GG"</span>,<span class="st">"L_PIB"</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span>      <span class="co"># PIB → gasto total</span></span>
+<span id="cb98-13"><a href="#cb98-13" aria-hidden="true" tabindex="-1"></a>Amat_d[<span class="st">"L_GC"</span>,<span class="st">"L_GG"</span>]  <span class="ot">&lt;-</span> <span class="cn">NA</span>      <span class="co"># gasto total → gasto corriente</span></span>
+<span id="cb98-14"><a href="#cb98-14" aria-hidden="true" tabindex="-1"></a>Amat_d[<span class="st">"L_GK"</span>,<span class="st">"L_GG"</span>]  <span class="ot">&lt;-</span> <span class="cn">NA</span>      <span class="co"># gasto total → gasto capital</span></span>
+<span id="cb98-15"><a href="#cb98-15" aria-hidden="true" tabindex="-1"></a>Amat_d[<span class="st">"L_IF"</span>,<span class="st">"L_PP"</span>]  <span class="ot">&lt;-</span> <span class="cn">NA</span>      <span class="co"># petróleo → ingresos fiscales</span></span>
+<span id="cb98-16"><a href="#cb98-16" aria-hidden="true" tabindex="-1"></a>Amat_d[<span class="st">"L_IF"</span>,<span class="st">"L_IVA"</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span>      <span class="co"># IVA → ingresos fiscales</span></span>
+<span id="cb98-17"><a href="#cb98-17" aria-hidden="true" tabindex="-1"></a>Amat_d[<span class="st">"L_IF"</span>,<span class="st">"L_IR"</span>]  <span class="ot">&lt;-</span> <span class="cn">NA</span>      <span class="co"># IR → ingresos fiscales</span></span>
+<span id="cb98-18"><a href="#cb98-18" aria-hidden="true" tabindex="-1"></a>Amat_d[<span class="st">"L_IF"</span>,<span class="st">"L_ICE"</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span>      <span class="co"># ICE → ingresos fiscales</span></span>
+<span id="cb98-19"><a href="#cb98-19" aria-hidden="true" tabindex="-1"></a><span class="co"># (todo lo no especificado queda en 0; ajusta NA/0 según tu narrativa)</span></span>
+<span id="cb98-20"><a href="#cb98-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-21"><a href="#cb98-21" aria-hidden="true" tabindex="-1"></a><span class="co"># B: diagonal (NA para las sd de los shocks), 0 fuera</span></span>
+<span id="cb98-22"><a href="#cb98-22" aria-hidden="true" tabindex="-1"></a>Bmat_d <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="cn">NA</span>, K); <span class="fu">dimnames</span>(Bmat_d) <span class="ot">&lt;-</span> <span class="fu">list</span>(vnames_d, vnames_d)</span>
+<span id="cb98-23"><a href="#cb98-23" aria-hidden="true" tabindex="-1"></a>Bmat_d[<span class="fu">row</span>(Bmat_d) <span class="sc">!=</span> <span class="fu">col</span>(Bmat_d)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb98-24"><a href="#cb98-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-25"><a href="#cb98-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimar SVAR(Δ)</span></span>
+<span id="cb98-26"><a href="#cb98-26" aria-hidden="true" tabindex="-1"></a>svar_d <span class="ot">&lt;-</span> <span class="fu">SVAR</span>(var_d, <span class="at">Amat =</span> Amat_d, <span class="at">Bmat =</span> Bmat_d, <span class="at">estmethod =</span> <span class="st">"direct"</span>)</span>
+<span id="cb98-27"><a href="#cb98-27" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">SVAR(Δ) estimado con éxito.</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+SVAR(Δ) estimado con éxito.</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (<span class="sc">!</span><span class="fu">is.null</span>(<span class="fu">dev.list</span>())) <span class="fu">dev.off</span>()</span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="co"># IRF: shock petróleo → PIB</span></span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>irf_pp_pib_d <span class="ot">&lt;-</span> <span class="fu">irf</span>(svar_d, <span class="at">impulse =</span> <span class="st">"L_PP"</span>, <span class="at">response =</span> <span class="st">"L_PIB"</span>,</span>
+<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">n.ahead =</span> <span class="dv">12</span>, <span class="at">boot =</span> <span class="cn">TRUE</span>, <span class="at">ci =</span> <span class="fl">0.95</span>)</span>
+<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">"IRF_SVAR_DIFF_LPP_to_LPIB.png"</span>, <span class="at">width =</span> <span class="dv">1400</span>, <span class="at">height =</span> <span class="dv">900</span>, <span class="at">res =</span> <span class="dv">150</span>)</span>
+<span id="cb100-7"><a href="#cb100-7" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>)); <span class="fu">plot</span>(irf_pp_pib_d); <span class="fu">dev.off</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>pdf 
+  2 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"✅ Guardado: IRF_SVAR_DIFF_LPP_to_LPIB.png</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Guardado: IRF_SVAR_DIFF_LPP_to_LPIB.png</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># IRF: shock petróleo → ingresos fiscales</span></span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>irf_pp_if_d <span class="ot">&lt;-</span> <span class="fu">irf</span>(svar_d, <span class="at">impulse =</span> <span class="st">"L_PP"</span>, <span class="at">response =</span> <span class="st">"L_IF"</span>,</span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">n.ahead =</span> <span class="dv">12</span>, <span class="at">boot =</span> <span class="cn">TRUE</span>, <span class="at">ci =</span> <span class="fl">0.95</span>)</span>
+<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">"IRF_SVAR_DIFF_LPP_to_LIF.png"</span>, <span class="at">width =</span> <span class="dv">1400</span>, <span class="at">height =</span> <span class="dv">900</span>, <span class="at">res =</span> <span class="dv">150</span>)</span>
+<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>)); <span class="fu">plot</span>(irf_pp_if_d); <span class="fu">dev.off</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>pdf 
+  2 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"✅ Guardado: IRF_SVAR_DIFF_LPP_to_LIF.png</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Guardado: IRF_SVAR_DIFF_LPP_to_LIF.png</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># FEVD (12 pasos)</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>fevd_d <span class="ot">&lt;-</span> <span class="fu">fevd</span>(svar_d, <span class="at">n.ahead =</span> <span class="dv">12</span>)</span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">"FEVD_SVAR_DIFF_12.png"</span>, <span class="at">width =</span> <span class="dv">1400</span>, <span class="at">height =</span> <span class="dv">900</span>, <span class="at">res =</span> <span class="dv">150</span>)</span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>)); <span class="fu">plot</span>(fevd_d); <span class="fu">dev.off</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>pdf 
+  2 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"✅ Guardado: FEVD_SVAR_DIFF_12.png</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Guardado: FEVD_SVAR_DIFF_12.png</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># IRFs de petróleo hacia todas las respuestas (lote)</span></span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>responses <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"L_PIB"</span>,<span class="st">"L_GG"</span>,<span class="st">"L_GC"</span>,<span class="st">"L_GK"</span>,<span class="st">"L_IF"</span>,<span class="st">"L_IVA"</span>,<span class="st">"L_ICE"</span>,<span class="st">"L_IR"</span>)</span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (resp <span class="cf">in</span> responses) {</span>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="fu">irf</span>(svar_d, <span class="at">impulse =</span> <span class="st">"L_PP"</span>, <span class="at">response =</span> resp, <span class="at">n.ahead =</span> <span class="dv">12</span>, <span class="at">boot =</span> <span class="cn">TRUE</span>, <span class="at">ci =</span> <span class="fl">0.95</span>)</span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>  fn <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"IRF_SVAR_DIFF_LPP_to_"</span>, resp, <span class="st">".png"</span>)</span>
+<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">png</span>(fn, <span class="at">width =</span> <span class="dv">1400</span>, <span class="at">height =</span> <span class="dv">900</span>, <span class="at">res =</span> <span class="dv">150</span>)</span>
+<span id="cb112-7"><a href="#cb112-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>)); <span class="fu">plot</span>(f); <span class="fu">dev.off</span>()</span>
+<span id="cb112-8"><a href="#cb112-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"✅ Guardado: "</span>, fn, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb112-9"><a href="#cb112-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Guardado: IRF_SVAR_DIFF_LPP_to_L_PIB.png</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Guardado: IRF_SVAR_DIFF_LPP_to_L_GG.png</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Guardado: IRF_SVAR_DIFF_LPP_to_L_GC.png</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Guardado: IRF_SVAR_DIFF_LPP_to_L_GK.png</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Guardado: IRF_SVAR_DIFF_LPP_to_L_IF.png</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Guardado: IRF_SVAR_DIFF_LPP_to_L_IVA.png</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Guardado: IRF_SVAR_DIFF_LPP_to_L_ICE.png</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Guardado: IRF_SVAR_DIFF_LPP_to_L_IR.png</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">=== FIN: SVAR en diferencias (estacionario) con gráficos exportados ===</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== FIN: SVAR en diferencias (estacionario) con gráficos exportados ===</code></pre>
+</div>
+</div>
+<p>Forecast</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ===============================</span></span>
+<span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="co"># FORECAST con VAR en diferencias</span></span>
+<span id="cb123-3"><a href="#cb123-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ===============================</span></span>
+<span id="cb123-4"><a href="#cb123-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-5"><a href="#cb123-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Horizonte de pronóstico (trimestres)</span></span>
+<span id="cb123-6"><a href="#cb123-6" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="dv">8</span>  <span class="co"># 2 años</span></span>
+<span id="cb123-7"><a href="#cb123-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-8"><a href="#cb123-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Pronóstico de diferencias (Δlog) con el VAR estacionario</span></span>
+<span id="cb123-9"><a href="#cb123-9" aria-hidden="true" tabindex="-1"></a>fc_d <span class="ot">&lt;-</span> <span class="fu">predict</span>(var_d, <span class="at">n.ahead =</span> h, <span class="at">ci =</span> <span class="fl">0.95</span>)</span>
+<span id="cb123-10"><a href="#cb123-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-11"><a href="#cb123-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraer medias, límites inferior/superior por variable</span></span>
+<span id="cb123-12"><a href="#cb123-12" aria-hidden="true" tabindex="-1"></a>vnames_d <span class="ot">&lt;-</span> <span class="fu">colnames</span>(var_d<span class="sc">$</span>y)</span>
+<span id="cb123-13"><a href="#cb123-13" aria-hidden="true" tabindex="-1"></a>dhat_mean <span class="ot">&lt;-</span> <span class="fu">sapply</span>(vnames_d, <span class="cf">function</span>(v) fc_d<span class="sc">$</span>fcst[[v]][, <span class="st">"fcst"</span>])</span>
+<span id="cb123-14"><a href="#cb123-14" aria-hidden="true" tabindex="-1"></a>dhat_low  <span class="ot">&lt;-</span> <span class="fu">sapply</span>(vnames_d, <span class="cf">function</span>(v) fc_d<span class="sc">$</span>fcst[[v]][, <span class="st">"lower"</span>])</span>
+<span id="cb123-15"><a href="#cb123-15" aria-hidden="true" tabindex="-1"></a>dhat_high <span class="ot">&lt;-</span> <span class="fu">sapply</span>(vnames_d, <span class="cf">function</span>(v) fc_d<span class="sc">$</span>fcst[[v]][, <span class="st">"upper"</span>])</span>
+<span id="cb123-16"><a href="#cb123-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-17"><a href="#cb123-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Reconstruir niveles (logs) desde el último dato observado</span></span>
+<span id="cb123-18"><a href="#cb123-18" aria-hidden="true" tabindex="-1"></a>last_level <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">tail</span>(Y_ts, <span class="dv">1</span>))   <span class="co"># vector de 9 niveles (logs) en 2024Q4</span></span>
+<span id="cb123-19"><a href="#cb123-19" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(last_level) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(Y_ts)</span>
+<span id="cb123-20"><a href="#cb123-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-21"><a href="#cb123-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Función auxiliar: acumula difs para pasar a niveles</span></span>
+<span id="cb123-22"><a href="#cb123-22" aria-hidden="true" tabindex="-1"></a>rebuild_levels <span class="ot">&lt;-</span> <span class="cf">function</span>(last_level, diffs_mat) {</span>
+<span id="cb123-23"><a href="#cb123-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># diffs_mat: h x k (Δlog pronosticadas)</span></span>
+<span id="cb123-24"><a href="#cb123-24" aria-hidden="true" tabindex="-1"></a>  lev <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA_real_</span>, <span class="at">nrow =</span> <span class="fu">nrow</span>(diffs_mat), <span class="at">ncol =</span> <span class="fu">ncol</span>(diffs_mat))</span>
+<span id="cb123-25"><a href="#cb123-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(lev) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(diffs_mat)</span>
+<span id="cb123-26"><a href="#cb123-26" aria-hidden="true" tabindex="-1"></a>  prev <span class="ot">&lt;-</span> last_level</span>
+<span id="cb123-27"><a href="#cb123-27" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(diffs_mat)) {</span>
+<span id="cb123-28"><a href="#cb123-28" aria-hidden="true" tabindex="-1"></a>    lev[t, ] <span class="ot">&lt;-</span> prev <span class="sc">+</span> diffs_mat[t, ]</span>
+<span id="cb123-29"><a href="#cb123-29" aria-hidden="true" tabindex="-1"></a>    prev     <span class="ot">&lt;-</span> lev[t, ]</span>
+<span id="cb123-30"><a href="#cb123-30" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb123-31"><a href="#cb123-31" aria-hidden="true" tabindex="-1"></a>  lev</span>
+<span id="cb123-32"><a href="#cb123-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb123-33"><a href="#cb123-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-34"><a href="#cb123-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Niveles pronosticados (punto), y bandas aprox. por acumulación (didáctico)</span></span>
+<span id="cb123-35"><a href="#cb123-35" aria-hidden="true" tabindex="-1"></a>lev_hat_mean <span class="ot">&lt;-</span> <span class="fu">rebuild_levels</span>(last_level, dhat_mean)</span>
+<span id="cb123-36"><a href="#cb123-36" aria-hidden="true" tabindex="-1"></a>lev_hat_low  <span class="ot">&lt;-</span> <span class="fu">rebuild_levels</span>(last_level, dhat_low)</span>
+<span id="cb123-37"><a href="#cb123-37" aria-hidden="true" tabindex="-1"></a>lev_hat_high <span class="ot">&lt;-</span> <span class="fu">rebuild_levels</span>(last_level, dhat_high)</span>
+<span id="cb123-38"><a href="#cb123-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-39"><a href="#cb123-39" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Construir fechas futuras (trimestres posteriores a 2024Q4)</span></span>
+<span id="cb123-40"><a href="#cb123-40" aria-hidden="true" tabindex="-1"></a><span class="co">#    Reusamos la secuencia "fechas" que ya tienes (2007Q1..2024Q4) y la extendemos</span></span>
+<span id="cb123-41"><a href="#cb123-41" aria-hidden="true" tabindex="-1"></a>fechas_all <span class="ot">&lt;-</span> <span class="fu">as.yearqtr</span>(<span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">"2007-01-01"</span>), <span class="at">by =</span> <span class="st">"quarter"</span>, <span class="at">length.out =</span> T <span class="sc">+</span> h))</span>
+<span id="cb123-42"><a href="#cb123-42" aria-hidden="true" tabindex="-1"></a>fechas_fc  <span class="ot">&lt;-</span> <span class="fu">tail</span>(fechas_all, h)  <span class="co"># fechas pronóstico</span></span>
+<span id="cb123-43"><a href="#cb123-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-44"><a href="#cb123-44" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) Armar data.frames para exportar a CSV</span></span>
+<span id="cb123-45"><a href="#cb123-45" aria-hidden="true" tabindex="-1"></a><span class="co"># a) Pronóstico en diferencias</span></span>
+<span id="cb123-46"><a href="#cb123-46" aria-hidden="true" tabindex="-1"></a>fc_diff_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb123-47"><a href="#cb123-47" aria-hidden="true" tabindex="-1"></a>  <span class="at">fecha_q =</span> fechas_fc,</span>
+<span id="cb123-48"><a href="#cb123-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(dhat_mean),</span>
+<span id="cb123-49"><a href="#cb123-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb123-50"><a href="#cb123-50" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb123-51"><a href="#cb123-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-52"><a href="#cb123-52" aria-hidden="true" tabindex="-1"></a><span class="co"># b) Pronóstico en niveles (logs)</span></span>
+<span id="cb123-53"><a href="#cb123-53" aria-hidden="true" tabindex="-1"></a>fc_level_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb123-54"><a href="#cb123-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">fecha_q =</span> fechas_fc,</span>
+<span id="cb123-55"><a href="#cb123-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(lev_hat_mean),</span>
+<span id="cb123-56"><a href="#cb123-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb123-57"><a href="#cb123-57" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb123-58"><a href="#cb123-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-59"><a href="#cb123-59" aria-hidden="true" tabindex="-1"></a><span class="co"># 5) Exportar a CSV (carpeta de trabajo actual)</span></span>
+<span id="cb123-60"><a href="#cb123-60" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(fc_diff_df,  <span class="st">"forecast_VARdiff_deltas.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb123-61"><a href="#cb123-61" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(fc_level_df, <span class="st">"forecast_VARdiff_levels.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb123-62"><a href="#cb123-62" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"✅ CSV guardados: forecast_VARdiff_deltas.csv, forecast_VARdiff_levels.csv</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ CSV guardados: forecast_VARdiff_deltas.csv, forecast_VARdiff_levels.csv</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 6) Gráficos exportados (histórico + pronóstico) para 4 variables clave</span></span>
+<span id="cb125-2"><a href="#cb125-2" aria-hidden="true" tabindex="-1"></a>plot_series_fc <span class="ot">&lt;-</span> <span class="cf">function</span>(varname, file_png) {</span>
+<span id="cb125-3"><a href="#cb125-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Serie histórica (niveles log)</span></span>
+<span id="cb125-4"><a href="#cb125-4" aria-hidden="true" tabindex="-1"></a>  hist_ts <span class="ot">&lt;-</span> Y_ts[, varname]</span>
+<span id="cb125-5"><a href="#cb125-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Serie pronosticada (niveles log)</span></span>
+<span id="cb125-6"><a href="#cb125-6" aria-hidden="true" tabindex="-1"></a>  fc_ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(lev_hat_mean[, varname],</span>
+<span id="cb125-7"><a href="#cb125-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2007</span> <span class="sc">+</span> (T)<span class="sc">/</span><span class="dv">4</span>, (T <span class="sc">%%</span> <span class="dv">4</span>) <span class="sc">+</span> <span class="dv">1</span>),  <span class="co"># arranque inmediatamente después</span></span>
+<span id="cb125-8"><a href="#cb125-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">frequency =</span> <span class="dv">4</span>)</span>
+<span id="cb125-9"><a href="#cb125-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-10"><a href="#cb125-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Cierra y abre dispositivo PNG grande para evitar márgenes</span></span>
+<span id="cb125-11"><a href="#cb125-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (<span class="sc">!</span><span class="fu">is.null</span>(<span class="fu">dev.list</span>())) <span class="fu">dev.off</span>()</span>
+<span id="cb125-12"><a href="#cb125-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">png</span>(file_png, <span class="at">width =</span> <span class="dv">1400</span>, <span class="at">height =</span> <span class="dv">900</span>, <span class="at">res =</span> <span class="dv">150</span>)</span>
+<span id="cb125-13"><a href="#cb125-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb125-14"><a href="#cb125-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gráfico base del histórico</span></span>
+<span id="cb125-15"><a href="#cb125-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(hist_ts, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">xlab =</span> <span class="st">"Trimestre"</span>, <span class="at">ylab =</span> <span class="st">"Log(nivel)"</span>,</span>
+<span id="cb125-16"><a href="#cb125-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Histórico y Forecast (niveles log) -"</span>, varname))</span>
+<span id="cb125-17"><a href="#cb125-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Añadir pronóstico</span></span>
+<span id="cb125-18"><a href="#cb125-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">window</span>(fc_ts, <span class="at">start =</span> <span class="fu">tsp</span>(fc_ts)[<span class="dv">1</span>]), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb125-19"><a href="#cb125-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Límites (aprox.) de confianza en niveles</span></span>
+<span id="cb125-20"><a href="#cb125-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">ts</span>(lev_hat_low[, varname],</span>
+<span id="cb125-21"><a href="#cb125-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">start =</span> <span class="fu">start</span>(fc_ts), <span class="at">frequency =</span> <span class="dv">4</span>), <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb125-22"><a href="#cb125-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">ts</span>(lev_hat_high[, varname],</span>
+<span id="cb125-23"><a href="#cb125-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">start =</span> <span class="fu">start</span>(fc_ts), <span class="at">frequency =</span> <span class="dv">4</span>), <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb125-24"><a href="#cb125-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">bty =</span> <span class="st">"n"</span>,</span>
+<span id="cb125-25"><a href="#cb125-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Histórico"</span>, <span class="st">"Pronóstico (media)"</span>, <span class="st">"Banda baja"</span>, <span class="st">"Banda alta"</span>),</span>
+<span id="cb125-26"><a href="#cb125-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb125-27"><a href="#cb125-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
+<span id="cb125-28"><a href="#cb125-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"✅ Gráfico guardado:"</span>, file_png, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb125-29"><a href="#cb125-29" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb125-30"><a href="#cb125-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-31"><a href="#cb125-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Elige algunas variables representativas para la clase:</span></span>
+<span id="cb125-32"><a href="#cb125-32" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (vn <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"L_PP"</span>,<span class="st">"L_PIB"</span>,<span class="st">"L_GG"</span>,<span class="st">"L_IF"</span>)) {</span>
+<span id="cb125-33"><a href="#cb125-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_series_fc</span>(vn, <span class="fu">paste0</span>(<span class="st">"FC_LEVELS_"</span>, vn, <span class="st">".png"</span>))</span>
+<span id="cb125-34"><a href="#cb125-34" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Gráfico guardado: FC_LEVELS_L_PP.png </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Gráfico guardado: FC_LEVELS_L_PIB.png </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Gráfico guardado: FC_LEVELS_L_GG.png </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Gráfico guardado: FC_LEVELS_L_IF.png </code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 7) (Opcional) Si quieres pronóstico en diferencias (Δlog) también en PNG:</span></span>
+<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a>plot_series_fc_diff <span class="ot">&lt;-</span> <span class="cf">function</span>(varname, file_png) {</span>
+<span id="cb130-3"><a href="#cb130-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (<span class="sc">!</span><span class="fu">is.null</span>(<span class="fu">dev.list</span>())) <span class="fu">dev.off</span>()</span>
+<span id="cb130-4"><a href="#cb130-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">png</span>(file_png, <span class="at">width =</span> <span class="dv">1400</span>, <span class="at">height =</span> <span class="dv">900</span>, <span class="at">res =</span> <span class="dv">150</span>)</span>
+<span id="cb130-5"><a href="#cb130-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb130-6"><a href="#cb130-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(dY_ts[, varname], <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">xlab =</span> <span class="st">"Trimestre"</span>, <span class="at">ylab =</span> <span class="st">"Δ log"</span>,</span>
+<span id="cb130-7"><a href="#cb130-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Histórico Δlog y Forecast -"</span>, varname))</span>
+<span id="cb130-8"><a href="#cb130-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">ts</span>(dhat_mean[, varname],</span>
+<span id="cb130-9"><a href="#cb130-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2007</span> <span class="sc">+</span> (T)<span class="sc">/</span><span class="dv">4</span>, (T <span class="sc">%%</span> <span class="dv">4</span>) <span class="sc">+</span> <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">4</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb130-10"><a href="#cb130-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">ts</span>(dhat_low[, varname],</span>
+<span id="cb130-11"><a href="#cb130-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2007</span> <span class="sc">+</span> (T)<span class="sc">/</span><span class="dv">4</span>, (T <span class="sc">%%</span> <span class="dv">4</span>) <span class="sc">+</span> <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">4</span>), <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb130-12"><a href="#cb130-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">ts</span>(dhat_high[, varname],</span>
+<span id="cb130-13"><a href="#cb130-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2007</span> <span class="sc">+</span> (T)<span class="sc">/</span><span class="dv">4</span>, (T <span class="sc">%%</span> <span class="dv">4</span>) <span class="sc">+</span> <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">4</span>), <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb130-14"><a href="#cb130-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">bty =</span> <span class="st">"n"</span>,</span>
+<span id="cb130-15"><a href="#cb130-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Δlog histórico"</span>, <span class="st">"Δlog pronóstico (media)"</span>, <span class="st">"Banda baja"</span>, <span class="st">"Banda alta"</span>),</span>
+<span id="cb130-16"><a href="#cb130-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb130-17"><a href="#cb130-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
+<span id="cb130-18"><a href="#cb130-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"✅ Gráfico guardado:"</span>, file_png, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb130-19"><a href="#cb130-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb130-20"><a href="#cb130-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-21"><a href="#cb130-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (vn <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"L_PP"</span>,<span class="st">"L_PIB"</span>,<span class="st">"L_GG"</span>,<span class="st">"L_IF"</span>)) {</span>
+<span id="cb130-22"><a href="#cb130-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_series_fc_diff</span>(vn, <span class="fu">paste0</span>(<span class="st">"FC_DIFF_"</span>, vn, <span class="st">".png"</span>))</span>
+<span id="cb130-23"><a href="#cb130-23" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Gráfico guardado: FC_DIFF_L_PP.png </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Gráfico guardado: FC_DIFF_L_PIB.png </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Gráfico guardado: FC_DIFF_L_GG.png </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Gráfico guardado: FC_DIFF_L_IF.png </code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">=== FORECAST listo: CSV + PNG exportados ===</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== FORECAST listo: CSV + PNG exportados ===</code></pre>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
