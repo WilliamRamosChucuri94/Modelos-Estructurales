@@ -378,7 +378,7 @@ Cuando las variables estan cointegradas:
 
 -   **Ejemplo empíco**
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+```{r}
 # =========================================================
 # 0) Paquetes y setup
 # =========================================================
@@ -461,7 +461,7 @@ for (t in 2:T) {
 
 **Series a modelar**
 
-Identificación económica que usaré (ajústala si quieres):
+Identificación económica que usaré (Debemos ajustar si quieremos):
 
 -   **Petróleo (L_PP)** es “exógeno contemporáneo”: no recibe shocks contemporáneos de otras variables (solo su propio shock).
 
