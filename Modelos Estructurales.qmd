@@ -38,6 +38,8 @@ params:
 
     -   Permiten modelar situaciones sobre las cuales no tenemos historia, es decir una estructura consistente.
 
+-   En el Modelo VAR no nos interesan los coeficientes. Hay que recordar que todas las variables son endógenas, es decir estan conectados
+
 ## 1.2.Modelo VAR(p)
 
 Un modelo autorregresivo vectorial de orden ( p ), denotado como ( VAR(p) ), se define de la siguiente forma:
@@ -153,9 +155,230 @@ Por tanto, se necesita **al menos una restricción adicional** (por ejemplo, asu
 
 -   Sin restricciones suficientes, solo observamos correlaciones reducidas, no relaciones estructurales.
 
-**Ejemplo empíco**
+## Funciones impulso respuesta
 
-```{r}
+En síntesis queremos analizar como un shock exogeno afecta a un shock contemporaneo en el momento
+
+**Eigen valores**
+
+Necesitamos que los eigen valores esten dentro del circulo unitario.
+
+Tratamos de modelar relaciones aditivas, es decir que conforme me alejo en el tiempo del shock idiosincrático este se va perdiendo en el tiempo.
+
+## **Modelos parsimoniosos**
+
+En modelos de series temporales es fundamental estimar modelos parsimoniosos, es decir que sean modelos sencillos, el estimar modelos multiecuaciones requiere tener un poder computacional grande.
+
+-   El número de rezagos es determinante
+
+-   El número de coeficientes de la estimación de un modelo VAR en este sistema se incrementa considerablemente por rezagos a incluir.
+
+-   Es fundamental guiarnos en los criterios de información: AIC \| BIC \| Hannan-Quinn para estimar una especificación óptima.
+
+-   min (AIC, BIC)
+
+## Ejemplo aplicado: Modelo VAR con tres variables macroeconómicas
+
+### 🔹 1. Variables del sistema
+
+Supón que queremos estudiar la relación dinámica entre:
+
+-   ( Y_t ): **PIB real trimestral** (crecimiento económico)\
+-   ( X_t ): **Inflación trimestral** (IPC)\
+-   ( Z_t ): **Tasa de interés de política monetaria**
+
+Nuestro interés es analizar cómo los choques en la tasa de interés afectan la inflación y el crecimiento, y viceversa.
+
+------------------------------------------------------------------------
+
+### 🔹 2. Especificación del modelo VAR(1)
+
+El modelo VAR(1) se escribe como:
+
+$$
+\begin{bmatrix}
+Y_t \\
+X_t \\
+Z_t
+\end{bmatrix}
+=
+\begin{bmatrix}
+\psi_Y \\
+\psi_X \\
+\psi_Z
+\end{bmatrix}
++
+\begin{bmatrix}
+\alpha_{11} & \alpha_{12} & \alpha_{13} \\
+\alpha_{21} & \alpha_{22} & \alpha_{23} \\
+\alpha_{31} & \alpha_{32} & \alpha_{33}
+\end{bmatrix}
+\begin{bmatrix}
+Y_{t-1} \\
+X_{t-1} \\
+Z_{t-1}
+\end{bmatrix}
++
+\begin{bmatrix}
+\mu_{Yt} \\
+\mu_{Xt} \\
+\mu_{Zt}
+\end{bmatrix}
+$$
+
+------------------------------------------------------------------------
+
+### 🔹 3. Interpretación económica
+
+Cada ecuación representa una variable endógena en función de los rezagos de todas las variables:
+
+$$
+\begin{aligned}
+Y_t &= \psi_Y + \alpha_{11}Y_{t-1} + \alpha_{12}X_{t-1} + \alpha_{13}Z_{t-1} + \mu_{Yt} \\
+X_t &= \psi_X + \alpha_{21}Y_{t-1} + \alpha_{22}X_{t-1} + \alpha_{23}Z_{t-1} + \mu_{Xt} \\
+Z_t &= \psi_Z + \alpha_{31}Y_{t-1} + \alpha_{32}X_{t-1} + \alpha_{33}Z_{t-1} + \mu_{Zt}
+\end{aligned}
+$$
+
+**Ejemplos de interpretación:**
+
+-   $\alpha_{12}$: mide cómo la inflación del trimestre anterior afecta el PIB actual.\
+-   $\alpha_{33}$: mide la persistencia de la tasa de interés.\
+-   $\alpha_{23}$: mide cómo la tasa de interés pasada influye en la inflación presente.
+
+------------------------------------------------------------------------
+
+### 🔹 4. Número de parámetros a estimar
+
+La matriz ( A_1 ) tiene:
+
+$$
+3 \times 3 = 9 \text{ coeficientes.}
+$$
+
+Los interceptos suman 3 parámetros $(\psi_Y, \psi_X, \psi_Z )$.
+
+**Total en las ecuaciones:**
+
+$$
+9 + 3 = 12 \text{ parámetros.}
+$$
+
+La matriz de varianza-covarianza del error es:
+
+$$
+\Sigma_{\mu} =
+\begin{bmatrix}
+\sigma^2_{YY} & \sigma_{YX} & \sigma_{YZ} \\
+\sigma_{XY} & \sigma^2_{XX} & \sigma_{XZ} \\
+\sigma_{ZY} & \sigma_{ZX} & \sigma^2_{ZZ}
+\end{bmatrix}
+$$
+
+Esta matriz es **simétrica**, por lo que aporta **6 parámetros adicionales**.
+
+**Total general:**
+
+$$
+12 + 6 = 18 \text{ parámetros a estimar.}
+$$
+
+------------------------------------------------------------------------
+
+### 🔹 5. Aumentando la complejidad: VAR(2)
+
+Si añadimos un segundo rezago para capturar efectos más lentos:
+
+$$
+Y_t = \psi + A_1Y_{t-1} + A_2Y_{t-2} + \mu_t
+$$
+
+La nueva matriz ( A_2 ) también tiene 9 coeficientes.
+
+Por tanto, el modelo tiene:
+
+$$
+3 \text{ (interceptos)} + 9 (A_1) + 9 (A_2) = 21 \text{ parámetros.}
+$$
+
+Si añadimos un tercer rezago (VAR(3)):
+
+$$
+3 + 9 \times 3 = 30 \text{ parámetros}
+$$
+
+(sin contar los de la matriz de covarianza).
+
+------------------------------------------------------------------------
+
+### 🔹 6. Problema de parsimonia
+
+Mientras más rezagos añadimos:
+
+-   Se **incrementa el número de parámetros** a estimar.\
+-   Se **reducen los grados de libertad** si la muestra es corta.\
+-   Crece el riesgo de **sobreajuste** (el modelo se adapta a los datos históricos pero pierde capacidad predictiva).\
+-   Aumenta la **complejidad analítica** (impulso-respuesta, descomposición de varianza, estabilidad, etc.).
+
+------------------------------------------------------------------------
+
+### ✅ Conclusión
+
+El modelo VAR permite capturar la interdependencia dinámica entre variables macroeconómicas, pero su uso requiere un equilibrio entre complejidad y parsimonia, especialmente cuando la muestra es limitada o el número de variables es grande.
+
+## **Test importantes.**
+
+**Test de Engel y Granger**
+
+-   Estima una regresión; estima los residuos de la regresión; especifica que esos residuos son estacionarios, esto mediante los test de Dickey- Fuller.
+
+**Test de Johansen (1988)**
+
+-   Versión generalizada de los test de Engel y Granger, pero de forma Vectorial Multivariada.
+
+-   Evalua raíz unitaria en vectores ( Sistema de vectores autoregresivos)
+
+**Consideraciones de aplicarlo en un modelo multivariado**
+
+Es posible que tenamos varios vectores de cointegración y exista más de un vector de cointegración.
+
+**Qué es cointegración**
+
+Puede que un sistema de ecuaciones de series de tiempo por separado sean no estacionarias, puede existir una combinación lineal de ellas que sí sea estacionaria.
+
+**Es relevante?**
+
+Si tenemos dos variables $Y$ y $X$ , llamese el PIB real y el Consumo Privado , en la práctica, tienden a crecer juntos .
+
+Por lo general, estos son $I(1)$ pero su diferencia puede ser estacionaria
+
+$Consumo - PIB$ pueden ser $I(0)$
+
+Es decir indicar una relación estable en el largo plazo.
+
+## **Implicaciones del Modelo VAR**
+
+Cuando las variables estan cointegradas:
+
+-   No se debe estimar un VAR en diferencias, porque se pierde la información del equilibrio de largo plazo.
+
+-   Tampoco un VAR sin restricciones.
+
+-   Solución: Estimar un modelo VECM (Modelo de corrección de Errores) - Es decir;
+
+    -   Dinámica de corto plazo
+
+    -   Relación a largo plazo ( Cointegración)
+
+👉 Si las series son **I(0)** → usamos **VAR en niveles**.\
+
+👉 Si las series son **I(1) y no cointegradas** → usamos **VAR en diferencias**.\
+
+👉 Si las series son **I(1) y cointegradas** → usamos **VECM**.
+
+-   **Ejemplo empíco**
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 # =========================================================
 # 0) Paquetes y setup
 # =========================================================
@@ -242,23 +465,13 @@ Identificación económica que usaré (ajústala si quieres):
 
 -   **Petróleo (L_PP)** es “exógeno contemporáneo”: no recibe shocks contemporáneos de otras variables (solo su propio shock).
 
--   
-
 -   **PIB (L_PIB)** puede reaccionar contemporáneamente a **petróleo**.
-
--   
 
 -   **Gasto total (L_GG)** reacciona contemporáneamente al **PIB** (reglas/prociclicidad).
 
--   
-
 -   **Gasto corriente / de capital (L_GC, L_GK)** reaccionan a **G_G**.
 
--   
-
 -   **Ingresos (L_IF)** reaccionan a **petróleo** (vía actividad/sector petrolero) y a **impuestos indirectos** (**L_IVA, L_IR, L_ICE**).
-
--   
 
 -   Para el resto, dejamos parámetros “libres” (NA) solo donde tiene sentido; el resto se fijan en 0.
 
@@ -283,7 +496,7 @@ ggplot(base_long, aes(x = fecha_q, y = valor)) +
 
 **Estacionariedad en niveles y en diferencias**
 
-```{r}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 adf_levels <- sapply(vars, function(v) adf.test(Y_ts[,v])$p.value)
 adf_diffs  <- sapply(vars, function(v) adf.test(diff(Y_ts[,v])[-1])$p.value)
 cat("\nADF p-valores en niveles:\n"); print(round(adf_levels,4))
@@ -344,13 +557,33 @@ Algunas (L_GK, L_IF, L_IVA, L_ICE) presentan p-valores entre 0.09–0.18, lo que
 
 **Seleccionamos los rezagos en niveles (para el Test de Johansen)**
 
-```{r}
-
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 sel_lvl <- VARselect(Y_ts, lag.max = 4, type = "const")
 cat("\nCriterios de información (niveles):\n"); print(sel_lvl$criteria)
 p_opt <- as.integer(sel_lvl$selection["AIC(n)"])
 Kj <- max(2, p_opt)
 cat("\nUsando K =", Kj, "para Johansen.\n")
+```
+
+El estándar en econometría aplicada (ver Johansen, 1991; Lütkepohl, 2005) es:
+
+> ✅ “Usar al menos un rezago en diferencias (p−1 ≥ 1) para capturar la dinámica de corto plazo.”
+>
+> -   Si `p_opt = 1` (por AIC o HQ), se eleva a `K = 2`
+>
+> -   Si `p_opt = 3`, se usa `K = 3` (sin cambio)
+>
+> -   Esto garantiza que el VECM tendrá **al menos un rezago en diferencias (ΔXₜ₋₁)**.
+>
+> -   $p$ es el número de rezagos de un VAR, para eso utilizamos los criterios de información; recordar, el modelo más parsimonioso.
+>
+> -   $K$ que utiliza el test de Johansen
+>
+> -   Ojo: En una diferenciación podemos omitir este error.
+
+```{r}
+
+
 
 j_tr  <- ca.jo(Y_ts, type = "trace", K = Kj, ecdet = "const", spec = "transitory")
 j_eig <- ca.jo(Y_ts, type = "eigen", K = Kj, ecdet = "const", spec = "transitory")
@@ -367,13 +600,119 @@ cat("\nRango de cointegración estimado (trace, 5%): r =", r, "\n")
 
 ```
 
-La salida proviene de la selección del número óptimo de rezagos $(p)$ en un modelo VAR.\
+La salida proviene de la selección del número óptimo de rezagos $(p)$ en un modelo VAR.
 
 Los criterios de información (AIC, HQ, SC, FPE) comparan la bondad de ajuste y la penalización por complejidad del modelo (número de rezagos).
 
 El objetivo es elegir el valor de $(p)$ que minimiza el criterio seleccionado.
 
 -Normalmente **AIC** (Akaike Information Criterion) o **BIC/SC** (Schwarz Criterion).
+
+```{r,echo=FALSE, warning=FALSE, message=FALSE}
+
+j_tr  <- ca.jo(Y_ts, type = "trace", K = Kj, ecdet = "const", spec = "transitory")
+j_eig <- ca.jo(Y_ts, type = "eigen", K = Kj, ecdet = "const", spec = "transitory")
+cat("\n--- Johansen TRACE ---\n"); print(summary(j_tr))
+cat("\n--- Johansen EIGEN ---\n"); print(summary(j_eig))
+
+```
+
+## Interpretación del Test de Johansen
+
+### 1️⃣ Prueba de la traza (Trace Test)
+
+El test **trace** contrasta la hipótesis nula de que existen como máximo *r* vectores de cointegración frente a la alternativa de que hay más.\
+El resultado fue:
+
+| Hipótesis nula | Estadístico | Valor crítico (5%) | Decisión |
+|----|----|----|----|
+| r = 0 | **220.68** | 202.92 | **Rechazar H₀** → existe al menos 1 relación de cointegración |
+| r ≤ 1 | **158.09** | 165.58 | No se rechaza H₀ |
+| r ≤ 2 | 117.22 | 131.70 | No se rechaza H₀ |
+| ... | ... | ... | ... |
+
+✅ **Conclusión:** se identifica **una relación de cointegración** entre las variables analizadas (*L_PP, L_PIB, L_GG, L_GC, L_GK, L_IF, L_IVA, L_ICE, L_IR*).\
+Esto implica que las series son integradas de orden uno (I(1)) y mantienen una relación de equilibrio a largo plazo.
+
+------------------------------------------------------------------------
+
+### 2️⃣ Prueba del máximo eigenvalor (Eigenvalue Test)
+
+El test **maximum eigenvalue (λmax)** contrasta *r* vectores frente a la alternativa de *r+1*.\
+El resultado fue:
+
+| Hipótesis nula | Estadístico | Valor crítico (5%) | Decisión         |
+|----------------|-------------|--------------------|------------------|
+| r = 0          | **62.58**   | 57.42              | **Rechazar H₀**  |
+| r ≤ 1          | **40.88**   | 52.00              | No se rechaza H₀ |
+| ...            | ...         | ...                | ...              |
+
+✅ **Conclusión:** también indica **una sola relación de cointegración**, coherente con el test trace.
+
+------------------------------------------------------------------------
+
+### 3️⃣ Interpretación de los eigenvectores (β)
+
+Los **eigenvectores** representan las **relaciones de cointegración**, es decir, las combinaciones lineales estacionarias entre las variables en niveles.
+
+\
+Por ejemplo, el primer vector (normalizado respecto a `L_PP.l1`) puede escribirse como:
+
+\[ L_PP = 0.73 L_PIB - 0.28 L_GG - 0.18 L_GC - 0.25 L_GK - 0.12 L_IF + 0.58 L_IVA + 0.76 L_ICE + 1.32 L_IR - 21.36 \]
+
+🧩 **Interpretación económica:** - Un aumento del **PIB** (+0.73) está asociado con un incremento de los **precios públicos (L_PP)** en el largo plazo.\
+- **Gasto de gobierno (L_GG)** y **consumo público (L_GC)** tienen relación negativa, sugiriendo efectos de equilibrio fiscal o restricciones presupuestarias.\
+- El **impuesto al valor agregado (L_IVA)** y el **impuesto a consumos especiales (L_ICE)** tienen signo positivo, reflejando que mayores recaudaciones se asocian con mayores ingresos totales.\
+- La **constante negativa (-21.36)** representa el término de equilibrio de largo plazo.
+
+------------------------------------------------------------------------
+
+### 4️⃣ Interpretación de los weights (α)
+
+Los **weights** (o matriz de carga α) indican **la velocidad de ajuste al equilibrio** ante desviaciones de largo plazo.\
+Valores altos (en valor absoluto) implican una rápida corrección.
+
+Por ejemplo: - `L_PP.d` tiene una carga de `-0.17`, indicando que los precios públicos se ajustan moderadamente hacia el equilibrio.\
+- `L_GC.d` con `-0.20` sugiere que el gasto corriente responde más rápido a los desequilibrios.\
+- `L_PIB.d` y `L_IVA.d` presentan coeficientes pequeños, indicando menor sensibilidad o ajuste lento.
+
+------------------------------------------------------------------------
+
+### 5️⃣ Conclusión general
+
+El sistema presenta **una relación de cointegración**, lo que implica que las variables fiscales y macroeconómicas (PIB, gasto, impuestos) **comparten un equilibrio de largo plazo**.\
+Las desviaciones de corto plazo se corrigen gradualmente, especialmente a través de los ajustes en precios públicos y gasto corriente.
+
+------------------------------------------------------------------------
+
+**Resumen interpretativo**
+
+| Elemento | Descripción | Conclusión |
+|----|----|----|
+| Test Trace | Evalúa número de relaciones de cointegración | 1 vector cointegrante |
+| Test Eigenvalue | Evalúa significancia marginal de cada raíz característica | 1 vector cointegrante |
+| Eigenvectors (β) | Relación de equilibrio entre las variables | Existe relación estable entre ingresos, gasto y PIB |
+| Weights (α) | Velocidad de ajuste | Ajuste moderado en L_PP y L_GC |
+| Conclusión económica | Equilibrio fiscal de largo plazo con desajustes transitorios | Evidencia de cointegración macrofiscal |
+
+------------------------------------------------------------------------
+
+```{r}
+choose_r_trace <- function(jobj, alpha = 0.05) {
+  ts <- jobj@teststat
+  cv <- jobj@cval[,"5pct"]
+  sum(ts > cv)
+}
+r <- max(1, choose_r_trace(j_tr, 0.05))   # asegura r≥1
+cat("\nRango de cointegración estimado (trace, 5%): r =", r, "\n")
+
+```
+
+Esto significa que el test Johansen de traza encontró una sola relación de cointegración entre las variables (r = 1), al nivel de significancia del 5%.
+
+**Dado que el modelo tiene cointegración**
+
+Procedemos a estimar un modelo de Vectores cointegrados
 
 ```{r}
 vecm_fit <- cajorls(j_tr, r = r)
@@ -383,7 +722,88 @@ print(vecm_fit$beta)
 var_from_vecm <- vec2var(j_tr, r = r)  
 ```
 
-Función para elejir r 5%
+## ¿Qué es ese β (“ect1”)?
+
+Con ( r = 1 ), hay una **relación de largo plazo** entre las 9 variables:
+
+$$
+X_t = (L_{PP}, \; L_{PIB}, \; L_{GG}, \; L_{GC}, \; L_{GK}, \; L_{IF}, \; L_{IVA}, \; L_{ICE}, \; L_{IR})'
+$$
+
+El objeto `vecm_fit$beta` entrega el vector $\beta$ tal que el **término de corrección de error (ECT)** se define como:
+
+$$
+ECT_t = \beta' X_{t-1}
+$$
+
+En nuestro ejemplo empírico:
+
+$$
+\begin{aligned}
+ECT_t &= 1 \cdot L_{PP,t-1}
++ 0.7325 \cdot L_{PIB,t-1}
+- 0.2779 \cdot L_{GG,t-1}
+- 0.1847 \cdot L_{GC,t-1}
+- 0.2481 \cdot L_{GK,t-1} \\
+&\quad - 0.1274 \cdot L_{IF,t-1}
++ 0.5791 \cdot L_{IVA,t-1}
++ 0.7588 \cdot L_{ICE,t-1}
++ 1.3175 \cdot L_{IR,t-1}
+- 21.3593
+\end{aligned}
+$$
+
+------------------------------------------------------------------------
+
+### 🔹 Interpretación del ECT
+
+En **equilibrio de largo plazo**, se cumple que:
+
+$$
+ECT_t = 0
+$$
+
+Cuando $ECT_t \neq 0$, significa que existe un **desvío del equilibrio**.
+
+La fila `constant = -21.3593` corresponde al **intercepto de la relación de largo plazo**, una constante restringida al **espacio cointegrante**, debido a la opción `ecdet = "const"` en la estimación del modelo.
+
+El hecho de que \$L\_{PP,t-1} = 1 \$ indica que **β está normalizado sobre ( L\_{PP} )**, aunque podrías normalizar sobre otra variable si deseas interpretar las **elasticidades** de manera más conveniente.
+
+------------------------------------------------------------------------
+
+### 🔹 ¿Cómo se usa el ECT en el VECM?
+
+El modelo de corrección de errores (VECM) para cada variable en diferencias incluye el término:
+
+$$
+\alpha \cdot ECT_{t-1}
+$$
+
+donde $\alpha$ representa los **loadings** o coeficientes de ajuste.
+
+Estos coeficientes $\alpha$ miden **qué tan fuerte y en qué dirección** cada variable corrige los desvíos del equilibrio de largo plazo.
+
+Por ejemplo, en la ecuación de:
+
+$$
+\Delta L_{PP}
+$$
+
+si el coeficiente asociado a $ECT_{t-1}$ es decir, su $\alpha$ es **negativo y estadísticamente significativo**, implica que:
+
+-   Cuando ( ECT\_{t-1} \> 0 ) (es decir, el precio está **por encima del equilibrio**),\
+-   entonces $\Delta L_{PP}$ tenderá a ser **negativo**,\
+-   lo cual **corrige el desvío** y restablece el equilibrio.
+
+------------------------------------------------------------------------
+
+### ✅ En resumen
+
+-   $\beta$: define la **relación de cointegración** (equilibrio de largo plazo).\
+-   $ECT_t$: mide el **grado de desviación** respecto a ese equilibrio.\
+-   $\alpha$: indica **la velocidad de ajuste** de cada variable hacia el equilibrio.
+
+## **Diagnosticos**
 
 ```{r}
 
@@ -391,6 +811,124 @@ cat("\n--- Portmanteau ---\n"); print(serial.test(var_from_vecm, lags.pt = 12, t
 cat("\n--- ARCH ---\n"); print(arch.test(var_from_vecm, lags.multi = 5))
 cat("\n--- Normalidad ---\n"); print(normality.test(var_from_vecm))
 ```
+
+## 🔹 Diagnósticos del modelo VAR / VECM
+
+------------------------------------------------------------------------
+
+### 1️⃣. Portmanteau test → Autocorrelación serial
+
+**Hipótesis:**
+
+$$
+\begin{aligned}
+H_0 &: \text{No hay autocorrelación serial en los residuos.} \\
+H_1 &: \text{Existe autocorrelación (dependencia entre errores rezagados).}
+\end{aligned}
+$$
+
+**Resultado:**
+
+$$
+\chi^2 = 854.21, \quad df = 819, \quad p\text{-value} = 0.191
+$$
+
+**Interpretación:**
+
+-   $p\text{-value} = 0.191 > 0.05 \Rightarrow$ **No se rechaza ( H_0 )**.\
+-   Los residuos **no presentan autocorrelación significativa**.
+
+✅ Esto indica que el modelo **captura adecuadamente la dinámica temporal**, es decir, los rezagos elegidos son suficientes.
+
+**Comentario para clase:**
+
+> “El test Portmanteau verifica que los residuos del VAR no tengan correlación serial.\
+> Si el p-valor es alto, el modelo está bien especificado en términos de dinámica temporal.”
+
+------------------------------------------------------------------------
+
+### 2️⃣. ARCH test → Heterocedasticidad condicional
+
+**Hipótesis:**
+
+$$
+\begin{aligned}
+H_0 &: \text{No hay efectos ARCH (varianza constante en el tiempo).} \\
+H_1 &: \text{Existe heterocedasticidad condicional (la varianza de los errores cambia con el tiempo).}
+\end{aligned}
+$$
+
+**Resultado:**
+
+$$
+\chi^2 = 2925, \quad df = 10125, \quad p\text{-value} = 1.000
+$$
+
+**Interpretación:**
+
+-   $p\text{-value} = 1.000 > 0.05 \Rightarrow$ **No se rechaza ( H_0 )**.\
+-   No hay evidencia de efectos ARCH → la varianza de los residuos parece **estable**.
+
+**Comentario:**
+
+> “El test ARCH comprueba si existe heterocedasticidad en los errores.\
+> En este caso, los resultados muestran **homocedasticidad**, es decir, el modelo no presenta volatilidad cambiante.”
+
+------------------------------------------------------------------------
+
+### 3️⃣. Normalidad multivariada (Jarque–Bera test)
+
+**Hipótesis:**
+
+$$
+\begin{aligned}
+H_0 &: \text{Los residuos son normales multivariados.} \\
+H_1 &: \text{Los residuos no siguen una distribución normal.}
+\end{aligned}
+$$
+
+**Resultados:**
+
+$$
+\chi^2 = 12.03, \quad df = 18, \quad p\text{-value} = 0.8457
+$$
+
+**Desglose:**
+
+-   **Skewness:** ( p = 0.5993 )\
+-   **Kurtosis:** ( p = 0.8623 )
+
+**Interpretación:**
+
+-   Los **p-valores son muy altos**, por lo tanto **no se rechaza ( H_0 )**.\
+-   Los residuos cumplen el supuesto de **normalidad**, tanto en simetría como en curtosis.
+
+**Comentario:**
+
+> “La normalidad de los residuos es importante para la validez de los intervalos de confianza\
+> y las pruebas de hipótesis en el VAR. En este caso, los residuos se distribuyen normalmente.”
+
+------------------------------------------------------------------------
+
+### 🔹 ✅ Conclusión general
+
+| **Test** | **Hipótesis nula** | **p-value** | **Decisión** | **Conclusión** |
+|----|----|----|----|----|
+| Portmanteau | No autocorrelación | 0.191 | No se rechaza | Residuos no autocorrelados |
+| ARCH | Homocedasticidad | 1.000 | No se rechaza | Varianza constante |
+| Normalidad (JB) | Normalidad multivariada | 0.8457 | No se rechaza | Residuos normales |
+
+------------------------------------------------------------------------
+
+**Conclusión:**
+
+Los resultados de las pruebas indican que el **modelo VAR/VECM está bien especificado**:
+
+-   No hay autocorrelación serial.\
+-   Los errores son homocedásticos.\
+-   Los residuos siguen una distribución aproximadamente normal.
+
+✅ Esto valida la **consistencia de las inferencias**, como los análisis de **impulso–respuesta**, **descomposición de varianza** y **efectos de transmisión**.
 
 **Estimación Estabilidad**
 
@@ -401,6 +939,22 @@ cat("\nMódulos de autovalores (VAR en niveles, p=Kj):\n"); print(round(sort(mod
 plot(roots(var_levels))   # puntos dentro del círculo => estable
 
 ```
+
+Son los **autovalores (roots)** de un modelo **VAR en niveles**, y su **verificación de estabilidad**, que es un paso fundamental antes de interpretar los resultados o generar funciones impulso–respuesta (IRF).
+
+-   Calculas los **autovalores del polinomio característico** del VAR.
+
+-   Los **modos (módulos)** de esos autovalores determinan la **estabilidad** del sistema dinámico
+
+-   Un modelo VAR es **estable** (o estacionario en niveles) si **todos los autovalores tienen módulo menor que 1**.
+
+-   Esto equivale a decir que las raíces del polinomio característico están **fuera del círculo unitario** (en el plano complejo).
+
+-   Todos los valores son **menores que 1**, lo que implica:
+
+    ✅ **El VAR es estable**\
+    ✅ **El sistema es estacionario en niveles (no explosivo)**\
+    ✅ Se pueden calcular funciones impulso–respuesta (IRF) y descomposición de varianza sin problemas.
 
 ## VAR equivalente del VECM (para IRF/FEVD/forecast)
 
@@ -414,6 +968,18 @@ stb_diff <- stability(var_d, type = "OLS-CUSUM")
 
 ```
 
+-   Estima el modelo VAR con las diferencias y el lag p=1.
+
+-   Incluye una constante (`type = "const"`) para capturar el promedio de crecimiento.
+
+🔹 Ahora `var_d` contiene el modelo listo para IRF, FEVD, forecast y pruebas de estabilidad.
+
+-   Aplica el test **OLS-CUSUM** (Brown, Durbin y Evans, 1975) a los residuos recursivos.
+
+    Evalúa si los coeficientes del VAR son **estables en el tiempo**.
+
+    Si las líneas del gráfico CUSUM se mantienen **dentro de las bandas críticas (95%)**, el modelo es **estable**.
+
 ```{r}
 png("stability_VAR_diff_CUSUM.png", width = 1400, height = 900, res = 150)
 par(mar = c(4, 4, 2, 1))
@@ -421,6 +987,14 @@ plot(stb_diff)
 dev.off()
 cat("Gráfico guardado en: stability_VAR_diff_CUSUM.png\n")
 ```
+
+Esto es el **VAR equivalente del VECM**, ya que si tus series son I(1) y cointegradas (r=1), el VECM y el VAR(Δ) contienen la misma dinámica de corto plazo.
+
+-   Calcula las **diferencias primeras** de cada serie
+
+-   `na.omit()` elimina los valores perdidos de la primera observación.
+
+🔹 Resultado: `dy_ts` contiene la versión estacionaria (en diferencias) de tu sistema multivariado.
 
 **IRF**
 
@@ -446,6 +1020,53 @@ cat("✅ Gráfico FEVD guardado como 'FEVD_VECM.png' en tu directorio de trabajo
 
 
 ```
+
+## 🔹 Función `irf()` — Respuestas Impulso–Respuesta (IRF)
+
+### ¿Qué hace?
+
+La función `irf()` genera las **respuestas impulso–respuesta** (*Impulse Response Functions*) del modelo `var_from_vecm`, que proviene del **VECM cointegrado**.
+
+Estas funciones permiten analizar cómo una **perturbación (shock)** en una variable afecta a las demás en el tiempo.
+
+------------------------------------------------------------------------
+
+### 🔹 Parámetros principales
+
+| **Argumento** | **Descripción** |
+|----|----|
+| `impulse = "L_PP"` | Variable que recibe el **shock exógeno** (perturbación). |
+| `response = "L_PIB"` | Variable cuya **respuesta** se observa. |
+| `n.ahead = 12` | Horizonte temporal de **12 períodos** (por ejemplo, trimestres o meses). |
+| `boot = TRUE` | Activa el **método bootstrap** para obtener intervalos de confianza. |
+| `ci = 0.95` | Establece un **intervalo de confianza del 95%**. |
+
+------------------------------------------------------------------------
+
+### 🔹 Resultado e interpretación
+
+El gráfico que produce `irf()` muestra cómo un **shock inesperado** en ( L\_{PP} ) (por ejemplo, precios o política pública) afecta al **PIB** (( L\_{PIB} )) a lo largo de 12 períodos.
+
+-   **Eje X:** Horizonte temporal (número de períodos).\
+-   **Eje Y:** Magnitud y signo de la respuesta de la variable dependiente.
+
+Las **bandas grises** o **líneas discontinuas** representan los **intervalos de confianza al 95%**:
+
+$$
+\text{Si la banda incluye el cero} \Rightarrow \text{la respuesta no es estadísticamente significativa.}
+$$
+
+$$
+\text{Si la banda se mantiene por encima o por debajo del cero} \Rightarrow \text{la respuesta sí es significativa.}
+$$
+
+------------------------------------------------------------------------
+
+### 🔹 📈 Ejemplo de interpretación
+
+> “Un aumento inesperado en ( L\_{PP} ) genera un **incremento transitorio** en ( L\_{PIB} ) durante los primeros **3 períodos**, que luego **se disipa** gradualmente.”
+
+------------------------------------------------------------------------
 
 ```{r}
 # IRF: L_PP → L_PIB
